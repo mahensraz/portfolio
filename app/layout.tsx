@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Providers from "@/components/providers/Providers";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Mahen's Raz — Full Stack Developer",
@@ -60,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="bg-background text-text-primary antialiased">
+        <SpeedInsights />
         <Providers>{children}</Providers>
       </body>
     </html>
