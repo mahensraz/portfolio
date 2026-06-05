@@ -275,7 +275,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Développeur Full Stack Freelance — NetPass",
     },
     company: "Freelance",
-    period: "Avril 2026",
+    period: { en: "April – May 2026", fr: "Avril – Mai 2026" },
     description: {
       en: "Architected and shipped a production-grade hotspot and PPPoE management platform with direct MikroTik RouterOS API integration, subscription billing, and real-time analytics dashboard.",
       fr: "Architecture et livraison d'une plateforme de gestion hotspot et PPPoE en production avec intégration directe de l'API MikroTik RouterOS, facturation par abonnement et tableau de bord analytique en temps réel.",
@@ -291,7 +291,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Développeur Full Stack Freelance — GeoHetra",
     },
     company: "Freelance",
-    period: "Octobre 2025",
+    period: { en: "September – December 2025", fr: "Septembre – Décembre 2025" },
     description: {
       en: "Designed and built an offline-first civic platform for local tax management, combining a React web dashboard for administrators and a Flutter mobile app for field agents with automatic sync.",
       fr: "Conception et développement d'une plateforme civique offline-first pour la gestion des impôts locaux, combinant un tableau de bord React pour les administrateurs et une application mobile Flutter pour les agents de terrain avec synchronisation automatique.",
@@ -308,7 +308,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Développeur Logiciel — Stage de Licence",
     },
     company: "TAKALOU Sarl, Fort-Dauphin",
-    period: "2024",
+    period: { en: "August – October 2024", fr: "Août – Octobre 2024" },
     description: {
       en: "Built a full production complaint management system during a 3-month internship: geolocation-based routing, automatic priority scoring, technician assignment workflows, and multi-role dashboards.",
       fr: "Développement en production d'un système de gestion des doléances durant un stage de 3 mois : routage géolocalisé, priorisation automatique, workflows d'affectation aux techniciens et tableaux de bord multi-rôles.",
@@ -325,7 +325,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Développeur Full Stack — AgriConnect (Projet Scolaire)",
     },
     company: "École Nationale d'Informatique (ENI)",
-    period: "2024 – 2025",
+    period: { en: "June 2025", fr: "Juin 2025" },
     description: {
       en: "Developed a multi-role agritech marketplace as a school project, connecting farmers and collectors through product listings, interactive map discovery, order workflows, and real-time messaging.",
       fr: "Développement d'un marketplace agritech multi-rôles en projet scolaire, mettant en relation paysans et collecteurs via des annonces de produits, une carte interactive, des workflows de commandes et une messagerie temps réel.",
@@ -342,7 +342,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Étudiant Master 2 — Génie Logiciel",
     },
     company: "École Nationale d'Informatique (ENI)",
-    period: "2024 – Présent",
+    period: { en: "2024 – Present", fr: "2024 – Présent" },
     description: {
       en: "Currently pursuing a specialized Master's degree in Computer Science at ENI, focused on advanced software architecture, design patterns, and engineering best practices.",
       fr: "Master spécialisé en Informatique à l'ENI, axé sur l'architecture logicielle avancée, les patrons de conception et les bonnes pratiques du génie logiciel.",
@@ -358,7 +358,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Diplômé Licence Professionnelle — Génie Logiciel",
     },
     company: "École Nationale d'Informatique (ENI)",
-    period: "2021 – 2024",
+    period: { en: "2021 – 2024", fr: "2021 – 2024" },
     description: {
       en: "Completed a professional Bachelor's degree in Computer Science at ENI, specializing in software engineering and databases. Graduated with an internship project at TAKALOU.",
       fr: "Licence Professionnelle en Informatique obtenue à l'ENI, spécialisation Génie Logiciel et Base de Données. Diplômé avec un projet de stage chez TAKALOU.",
@@ -373,7 +373,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       fr: "Baccalauréat série C",
     },
     company: "SJC Ambalavao",
-    period: "2020 – 2021",
+    period: { en: "2020 – 2021", fr: "2020 – 2021" },
     description: {
       en: "Graduated with a scientific Baccalauréat (série C — Mathematics & Physics) before joining ENI.",
       fr: "Obtention du Baccalauréat scientifique série C (Mathématiques & Physique) avant l'intégration de l'ENI.",

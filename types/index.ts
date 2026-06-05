@@ -17,7 +17,7 @@ export interface ExperienceItem {
   id: string;
   role: { en: string; fr: string };
   company: string;
-  period: string;
+  period: { en: string; fr: string };
   description: { en: string; fr: string };
   tags: string[];
   type: "work" | "education" | "project";

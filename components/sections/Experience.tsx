@@ -42,7 +42,7 @@ function TimelineItem({ item, isLast }: { item: ExperienceItem; isLast: boolean 
             </div>
             <div className="flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs text-text-muted">
               <Calendar size={11} />
-              <span className="font-mono-custom">{item.period}</span>
+              <span className="font-mono-custom">{item.period[lang]}</span>
             </div>
           </div>
           <p className="text-sm leading-relaxed text-text-secondary">{item.description[lang]}</p>

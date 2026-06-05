@@ -72,12 +72,12 @@ export const translations = {
       filterPrimary: "Core Stack",
       filterSecondary: "Also Work With",
       labelPrimary: "— Primary Technologies",
-      labelSecondary: "— Also familiar with",
-      domains: {
-        frontend: "Frontend",
-        backend: "Backend",
-        devops: "DevOps & Tools",
-      },
+      // labelSecondary: "— Also familiar with",
+      // domains: {
+      //   frontend: "Frontend",
+      //   backend: "Backend",
+      //   devops: "DevOps & Tools",
+      // },
     },
     projects: {
       sectionNum: "03.",
@@ -234,12 +234,12 @@ export const translations = {
       filterPrimary: "Stack principal",
       filterSecondary: "Aussi à l'aise avec",
       labelPrimary: "— Technologies principales",
-      labelSecondary: "— Également familier avec",
-      domains: {
-        frontend: "Frontend",
-        backend: "Backend",
-        devops: "DevOps & Outils",
-      },
+      // labelSecondary: "— Également familier avec",
+      // domains: {
+      //   frontend: "Frontend",
+      //   backend: "Backend",
+      //   devops: "DevOps & Outils",
+      // },
     },
     projects: {
       sectionNum: "03.",

@@ -34,7 +34,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-24"
     >
       {/* Dot grid background */}
       <div
