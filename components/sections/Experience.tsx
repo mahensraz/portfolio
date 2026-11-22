@@ -1,61 +1,115 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Code2, Calendar } from "lucide-react";
-import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
+import { Briefcase, GraduationCap, Code2 } from "lucide-react";
+import ScrollReveal, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollReveal";
 import { Badge } from "@/components/ui/badge";
-import { EXPERIENCE, PROFILE } from "@/lib/data";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  EXPERIENCE,
+  getLocalizedList,
+  getLocalizedText,
+  PROFILE,
+} from "@/lib/data";
 import { useLang } from "@/context/LanguageContext";
 import type { ExperienceItem } from "@/types";
 
+const WORK_PROJECT_ORDER = [
+  "hoticket-internship",
+  "netpass-freelance",
+  "geohetra-freelance",
+  "agriconnect-school",
+  "internship-takalou",
+] as const;
+
+const EDUCATION_ORDER = ["master2", "licence", "bac"] as const;
+
 const TYPE_ICON = {
-  work:      <Briefcase size={14} />,
-  project:   <Code2 size={14} />,
-  education: <GraduationCap size={14} />,
-};
-const TYPE_STYLE = {
-  work:      { color: "text-accent-blue",   bg: "bg-accent-blue/10",   border: "border-accent-blue/20" },
-  project:   { color: "text-accent-purple", bg: "bg-accent-purple/10", border: "border-accent-purple/20" },
-  education: { color: "text-accent-cyan",   bg: "bg-accent-cyan/10",   border: "border-accent-cyan/20" },
+  work: <Briefcase size={12} aria-hidden="true" />,
+  project: <Code2 size={12} aria-hidden="true" />,
+  education: <GraduationCap size={12} aria-hidden="true" />,
 };
 
-function TimelineItem({ item, isLast }: { item: ExperienceItem; isLast: boolean }) {
-  const { lang } = useLang();
-  const style = TYPE_STYLE[item.type];
+const TYPE_COLOR = {
+  work: "text-primary",
+  project: "text-accent-purple",
+  education: "text-accent-cyan",
+};
+
+function sortByOrder(items: ExperienceItem[], order: readonly string[]) {
+  const rank = new Map(order.map((id, index) => [id, index]));
+  return [...items].sort((a, b) => {
+    const rankA = rank.get(a.id) ?? Number.MAX_SAFE_INTEGER;
+    const rankB = rank.get(b.id) ?? Number.MAX_SAFE_INTEGER;
+    return rankA - rankB;
+  });
+}
+
+function TimelineRow({
+  item,
+  compact = false,
+}: {
+  item: ExperienceItem;
+  compact?: boolean;
+}) {
+  const { lang, t } = useLang();
+  const typeLabel =
+    item.type === "work"
+      ? t.experience.legend.work
+      : item.type === "project"
+        ? t.experience.legend.project
+        : t.experience.legend.education;
 
   return (
     <StaggerItem>
-      <div className="relative flex gap-5">
-        <div className="flex flex-col items-center">
-          <motion.div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border ${style.border} ${style.bg} ${style.color}`} whileHover={{ scale: 1.1 }}>
+      <div
+        className={`grid gap-2.5 transition-colors duration-200 hover:bg-card/40 md:-mx-4 md:grid-cols-[176px_1fr] md:gap-8 md:rounded-lg md:px-4 ${
+          compact ? "py-5" : "py-6"
+        }`}
+      >
+        {/* Left: Period + subtle type marker */}
+        <div className="flex flex-wrap items-center justify-between gap-2 md:flex-col md:items-start md:justify-start md:gap-1.5">
+          <span className="font-mono-custom text-xs text-muted-foreground">
+            {item.period[lang]}
+          </span>
+          <span
+            className={`inline-flex items-center gap-1.5 font-mono-custom text-[11px] ${TYPE_COLOR[item.type]}`}
+          >
             {TYPE_ICON[item.type]}
-          </motion.div>
-          {!isLast && (
-            <div className="mt-2 w-px flex-1" style={{ background: "linear-gradient(to bottom, hsl(var(--border) / 0.8), transparent)", minHeight: "40px" }} />
-          )}
+            <span>{typeLabel}</span>
+          </span>
         </div>
 
-        <div className={`card-shine mb-8 flex-1 overflow-hidden rounded-2xl border border-border bg-surface p-5 transition-all duration-200 hover:border-border-light ${isLast ? "mb-0" : ""}`}>
-          <div className="mb-3 flex flex-wrap items-start justify-between gap-2">
-            <div>
-              <h3 className="font-display text-base font-bold text-text-primary">{item.role[lang]}</h3>
-              <p className={`mt-0.5 text-sm font-medium ${style.color}`}>{item.company}</p>
-            </div>
-            <Badge
-              variant="secondary"
-              className="whitespace-nowrap border-border px-2.5 py-1 font-mono-custom text-xs font-normal text-muted-foreground"
-            >
-              <Calendar size={11} />
-              <span>{item.period[lang]}</span>
-            </Badge>
+        {/* Right: Role, organization, description, discrete tags */}
+        <div className="min-w-0 space-y-2.5">
+          <div>
+            <h3 className="font-display text-base font-semibold leading-snug text-foreground">
+              {item.role[lang]}
+            </h3>
+            <p className="mt-0.5 text-sm font-medium text-primary">
+              {getLocalizedText(item.company, lang)}
+            </p>
           </div>
-          <p className="text-sm leading-relaxed text-text-secondary">{item.description[lang]}</p>
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {item.tags.map((tag) => (
+
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            {item.description[lang]}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {getLocalizedList(item.tags, lang).map((tag) => (
               <Badge
                 key={tag}
-                variant="subtle"
-                className="whitespace-nowrap rounded px-2 py-0.5 font-mono-custom text-[11px] tracking-wide"
+                variant="outline"
+                className="whitespace-nowrap border-border/80 bg-transparent px-2 py-0.5 font-mono-custom text-[11px] font-normal text-muted-foreground"
               >
                 {tag}
               </Badge>
@@ -70,76 +124,171 @@ function TimelineItem({ item, isLast }: { item: ExperienceItem; isLast: boolean 
 export default function Experience() {
   const { t } = useLang();
 
+  const workAndProjects = sortByOrder(
+    EXPERIENCE.filter((item) => item.type !== "education"),
+    WORK_PROJECT_ORDER,
+  );
+
+  const educationItems = sortByOrder(
+    EXPERIENCE.filter((item) => item.type === "education"),
+    EDUCATION_ORDER,
+  );
+
   return (
     <section id="experience" className="section-padding">
       <div className="container-section">
         <ScrollReveal className="mb-14">
           <div className="flex items-center gap-3">
-            <span className="font-mono-custom text-xs text-accent-blue">{t.experience.sectionNum}</span>
-            <h2 className="font-display text-3xl font-bold text-text-primary lg:text-4xl">{t.experience.sectionTitle}</h2>
+            <span className="font-mono-custom text-xs text-accent-blue">
+              {t.experience.sectionNum}
+            </span>
+            <h2 className="font-display text-3xl font-bold text-text-primary lg:text-4xl">
+              {t.experience.sectionTitle}
+            </h2>
             <div className="ml-4 h-px flex-1 bg-border" />
           </div>
-          <p className="mt-4 max-w-2xl text-base text-text-secondary">{t.experience.sectionDesc}</p>
+          <p className="mt-4 max-w-2xl text-base text-text-secondary">
+            {t.experience.sectionDesc}
+          </p>
         </ScrollReveal>
 
-        <div className="grid gap-12 lg:grid-cols-[1fr_300px]">
-          <StaggerContainer delay={0.1} staggerDelay={0.12}>
-            {EXPERIENCE.map((item, i) => (
-              <TimelineItem key={item.id} item={item} isLast={i === EXPERIENCE.length - 1} />
-            ))}
-          </StaggerContainer>
+        <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:items-start">
+          {/* Editorial chronology */}
+          <div className="space-y-12">
+            {/* Group 1: Work & Projects */}
+            <div>
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <p className="font-mono-custom text-xs uppercase tracking-widest text-muted-foreground">
+                  {t.experience.legend.work} · {t.experience.legend.project}
+                </p>
+              </div>
+              <StaggerContainer
+                className="divide-y divide-border border-y border-border"
+                delay={0.05}
+                staggerDelay={0.08}
+              >
+                {workAndProjects.map((item) => (
+                  <TimelineRow key={item.id} item={item} />
+                ))}
+              </StaggerContainer>
+            </div>
 
-          <ScrollReveal direction="left" delay={0.2}>
-            <div className="flex flex-col gap-5 lg:sticky lg:top-24">
-              {/* Profile card */}
-              <div className="rounded-2xl border border-border p-5"
-                style={{ background: "linear-gradient(135deg,hsl(var(--primary) / 0.06) 0%,hsl(var(--accent-purple) / 0.04) 100%)" }}>
-                <h3 className="font-display text-sm font-semibold text-text-primary">{t.experience.profile.title}</h3>
-                <div className="mt-4 flex flex-col gap-3">
+            {/* Group 2: Education */}
+            <div>
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <p className="font-mono-custom text-xs uppercase tracking-widest text-muted-foreground">
+                  {t.experience.legend.education}
+                </p>
+              </div>
+              <StaggerContainer
+                className="divide-y divide-border border-y border-border"
+                delay={0.08}
+                staggerDelay={0.08}
+              >
+                {educationItems.map((item) => (
+                  <TimelineRow key={item.id} item={item} compact />
+                ))}
+              </StaggerContainer>
+            </div>
+          </div>
+
+          {/* Single cohesive sticky sidebar Card */}
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <ScrollReveal direction="left" delay={0.15}>
+              <Card className="overflow-hidden">
+              <CardHeader className="p-5 pb-4">
+                <CardTitle className="text-sm font-semibold text-foreground">
+                  {t.experience.profile.title}
+                </CardTitle>
+              </CardHeader>
+
+              <CardContent className="space-y-5 px-5 pb-5 pt-0">
+                <dl className="divide-y divide-border/70 border-y border-border/70">
                   {[
-                    { label: t.experience.profile.approach, value: t.experience.profile.approachVal, color: "text-accent-blue" },
-                    { label: t.experience.profile.strength, value: t.experience.profile.strengthVal, color: "text-accent-purple" },
-                    { label: t.experience.profile.interest, value: t.experience.profile.interestVal, color: "text-accent-cyan" },
-                    { label: t.experience.profile.learning, value: t.experience.profile.learningVal, color: "text-success" },
-                  ].map((item) => (
-                    <div key={item.label} className="flex items-center justify-between">
-                      <span className="font-mono-custom text-[11px] uppercase tracking-wider text-text-muted">{item.label}</span>
-                      <span className={`text-xs font-medium ${item.color}`}>{item.value}</span>
+                    {
+                      label: t.experience.profile.approach,
+                      value: t.experience.profile.approachVal,
+                      color: "text-primary",
+                    },
+                    {
+                      label: t.experience.profile.strength,
+                      value: t.experience.profile.strengthVal,
+                      color: "text-accent-purple",
+                    },
+                    {
+                      label: t.experience.profile.interest,
+                      value: t.experience.profile.interestVal,
+                      color: "text-accent-cyan",
+                    },
+                    {
+                      label: t.experience.profile.learning,
+                      value: t.experience.profile.learningVal,
+                      color: "text-success",
+                    },
+                  ].map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex items-center justify-between gap-3 py-2.5"
+                    >
+                      <dt className="font-mono-custom text-[11px] uppercase tracking-wider text-muted-foreground">
+                        {row.label}
+                      </dt>
+                      <dd className={`text-right text-xs font-medium ${row.color}`}>
+                        {row.value}
+                      </dd>
                     </div>
                   ))}
-                </div>
-              </div>
+                </dl>
 
-              {/* Legend */}
-              <div className="rounded-2xl border border-border bg-surface p-5">
-                <h3 className="mb-3 font-display text-sm font-semibold text-text-primary">{t.experience.legend.title}</h3>
-                <div className="flex flex-col gap-2.5">
-                  {(["work","project","education"] as const).map((type) => {
-                    const s = TYPE_STYLE[type];
-                    const label = type === "work" ? t.experience.legend.work : type === "project" ? t.experience.legend.project : t.experience.legend.education;
-                    return (
-                      <div key={type} className="flex items-center gap-2.5">
-                        <div className={`flex h-6 w-6 items-center justify-center rounded-lg border ${s.border} ${s.bg} ${s.color}`}>
+                {/* Inline compact legend (no separate card) */}
+                <div className="space-y-2">
+                  <p className="font-mono-custom text-[11px] uppercase tracking-wider text-muted-foreground">
+                    {t.experience.legend.title}
+                  </p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                    {(["work", "project", "education"] as const).map((type) => {
+                      const label =
+                        type === "work"
+                          ? t.experience.legend.work
+                          : type === "project"
+                            ? t.experience.legend.project
+                            : t.experience.legend.education;
+                      return (
+                        <span
+                          key={type}
+                          className={`inline-flex items-center gap-1.5 text-xs ${TYPE_COLOR[type]}`}
+                        >
                           {TYPE_ICON[type]}
-                        </div>
-                        <span className="text-xs text-text-secondary">{label}</span>
-                      </div>
-                    );
-                  })}
+                          <span className="text-muted-foreground">{label}</span>
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
+              </CardContent>
 
-              {/* CTA card */}
-              <a href={`mailto:${PROFILE.email}`}
-                className="block rounded-2xl border border-accent-blue/20 bg-gradient-to-br from-accent-blue/10 to-accent-purple/10 p-5 text-center transition-all hover:border-accent-blue/30">
-                <p className="font-display text-sm font-semibold text-text-primary">{t.experience.cta.title}</p>
-                <p className="mt-1 text-xs text-text-secondary">{t.experience.cta.sub}</p>
-                <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent-blue">
-                  {t.experience.cta.link}
+              <CardFooter className="flex flex-col items-stretch gap-3 border-t border-border bg-secondary/20 p-5">
+                <div>
+                  <p className="font-display text-sm font-semibold text-foreground">
+                    {t.experience.cta.title}
+                  </p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {t.experience.cta.sub}
+                  </p>
                 </div>
-              </a>
-            </div>
-          </ScrollReveal>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-full rounded-lg border-border-light bg-background text-xs font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                >
+                  <a href={`mailto:${PROFILE.email}`}>
+                    {t.experience.cta.link}
+                  </a>
+                </Button>
+              </CardFooter>
+            </Card>
+            </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>

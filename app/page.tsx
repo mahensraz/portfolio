@@ -13,7 +13,7 @@ export default function Home() {
     <>
       <PageLoader />
       <Navbar />
-      <main className="relative overflow-hidden">
+      <main className="relative overflow-x-clip">
         {/* Global ambient light orbs */}
         <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
           <div className="orb absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-primary/[0.06]" />

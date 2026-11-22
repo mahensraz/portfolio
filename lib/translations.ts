@@ -7,44 +7,47 @@ export const translations = {
       experience: "Experience",
       contact: "Contact",
       available: "Available",
-      hire: "Hire me",
+      hire: "Contact me",
     },
     hero: {
       available: "Open to opportunities",
-      title: "Full Stack Developer",
+      title: "Full Stack",
       titleAnd: "&",
       titleSub: "Mobile Developer",
-      tagline: "I design and build web and mobile applications for real-world use — from concept to production-ready systems.",
+      tagline:
+        "I design and build web and mobile applications, from user interfaces to backend APIs and data systems.",
       cta_projects: "View Projects",
+      cta_resume: "Download my resume",
+      cta_resume_view: "View my resume",
       cta_github: "GitHub",
       cta_linkedin: "LinkedIn",
       basedIn: "Based in",
       scroll: "scroll",
-      codePassion: '"delivering products that work"',
+      codePassion: '"Full Stack & Mobile · Software Architecture"',
     },
     about: {
       sectionNum: "01.",
-      sectionTitle: "About Me",
+      sectionTitle: "About",
       paragraphs: [
-        "I'm a Full Stack and Mobile developer based in Madagascar. I design, build, and ship complete digital products — web platforms and mobile applications that move from idea to production.",
+        "I am a Full Stack & Mobile Developer based in Madagascar, currently completing a Master's Degree in Software Engineering and Databases at the National School of Informatics (ENI Fianarantsoa).",
 
-        "My recent projects include NetPass, a live hotspot and PPPoE management platform with MikroTik RouterOS integration, and GeoHetra, an offline-first municipal tax system with a Flutter mobile app for field agents. Both were built from scratch and deployed in real environments.",
+        "My work spans web platforms, backend APIs, and mobile applications — including HOTICKET, a multiservice booking platform developed during my Master's internship at TANJAKAI, GeoHetra for municipal local tax management with an offline-first Flutter app, and NetPass for Hotspot and PPPoE network management with MikroTik RouterOS.",
 
-        "I work across the full stack — React and Next.js on the frontend, Flutter for mobile, Laravel and Node.js on the backend, and MySQL/PostgreSQL for data systems. I'm currently strengthening my software architecture skills through a Master's in Software Engineering at ENI Fianarantsoa."
+        "I build solutions with React, Next.js, TypeScript, Flutter, Laravel, PHP, Node.js, Express.js, NestJS, MySQL, PostgreSQL, and Prisma, with a strong interest in software architecture, Cloud, and DevOps.",
       ],
       traits: [
         {
-          title: "Full Stack + Mobile",
-          desc: "React, Next.js, Flutter, Laravel, Node.js — I build complete systems from interface to backend architecture."
+          title: "Full Stack & Mobile",
+          desc: "End-to-end development of web applications, REST APIs, relational databases, and cross-platform Flutter mobile apps.",
         },
         {
-          title: "System Design Thinking",
-          desc: "I focus on scalable architecture, API design, offline-first systems, and clean data modeling."
+          title: "Software Architecture",
+          desc: "Structured data modeling, modular API design, role-based access control, and offline-first data synchronization.",
         },
         {
-          title: "Production-Oriented",
-          desc: "I build real systems used in production environments, not just demo projects or prototypes."
-        }
+          title: "Delivery & Deployment",
+          desc: "Containerization with Docker, web deployment on platforms such as Render and Vercel, and continuous learning in Cloud & DevOps.",
+        },
       ],
       stats: {
         projects: "Projects shipped",
@@ -54,6 +57,9 @@ export const translations = {
       },
       card: {
         openToWork: "Open to opportunities",
+        role: "Full Stack & Mobile Developer",
+        academic:
+          "Master's Degree in Software Engineering and Databases — National School of Informatics (ENI Fianarantsoa)",
         location: "Location",
         focus: "Focus",
         status: "Status",
@@ -67,67 +73,79 @@ export const translations = {
       sectionNum: "02.",
       sectionTitle: "Tech Stack",
       sectionDesc:
-        "Technologies I work with daily to architect, build, and ship full stack applications.",
+        "Core technologies and tools I use to design, build, and deploy web and mobile applications.",
       filterAll: "All",
       filterPrimary: "Core Stack",
-      filterSecondary: "Also Work With",
+      filterSecondary: "Additional Skills",
       labelPrimary: "— Primary Technologies",
+      labelSecondary: "— Additional Skills",
     },
     projects: {
       sectionNum: "03.",
-      sectionTitle: "Featured Projects",
+      sectionTitle: "Selected Projects",
       sectionDesc:
-        "Real-world applications built with production-grade code, clean architecture, and thoughtful UX.",
+        "Web and mobile applications developed across internships, freelance work, and academic projects.",
       viewDetails: "View details",
       viewGithub: "GitHub Repo",
       viewLive: "Live Demo",
       sourceOnRequest: "Source code available on request",
+      privateRepo: "Private source code",
+      inProgressBadge: "Master's Internship · In development",
+      screenshotsSoon: "Screenshots coming soon.",
+      openGallery: "Open gallery",
+      screenshotsCount: "screenshots",
+      groupCurrent: "Current project",
+      groupKey: "Key projects",
+      groupOther: "Other projects",
       seeMore: "See more on GitHub",
       screenshots: "Screenshots",
       noScreenshots: "No screenshots available yet",
       close: "Close",
-      tags: "Tech Stack",
+      tags: "Technologies",
       prevImg: "Previous",
       nextImg: "Next",
+      readMore: "Read more",
+      readLess: "Show less",
     },
     experience: {
       sectionNum: "04.",
-      sectionTitle: "Experience",
-      sectionDesc: "My journey through work, projects, and academic growth.",
+      sectionTitle: "Experience & Education",
+      sectionDesc:
+        "Internships, freelance projects, and academic background in Software Engineering and Databases.",
       profile: {
-        title: "Engineering Profile",
-        approach: "Approach",
-        approachVal: "Full Stack First",
+        title: "Technical Profile",
+        approach: "Positioning",
+        approachVal: "Full Stack & Mobile",
         strength: "Strength",
-        strengthVal: "Backend + API Design",
+        strengthVal: "Backend & API Design",
         interest: "Interest",
-        interestVal: "System Architecture",
-        learning: "Learning",
+        interestVal: "Software Architecture",
+        learning: "Exploring",
         learningVal: "Cloud & DevOps",
       },
       legend: {
-        title: "Timeline Legend",
-        work: "Work experience",
-        project: "Project experience",
+        title: "Legend",
+        work: "Internships",
+        project: "Projects",
         education: "Education",
       },
       cta: {
-        title: "Want to work together?",
-        sub: "Let's build something great",
+        title: "Open to collaboration",
+        sub: "Full-time positions, freelance projects, or technical discussions.",
         link: "Get in touch →",
       },
     },
     contact: {
       sectionNum: "05.",
-      sectionTitle: "Get in Touch",
+      sectionTitle: "Contact",
       sectionDesc:
-        "Have a project in mind or want to discuss opportunities? I'd love to hear from you.",
+        "Feel free to reach out to discuss a position, a freelance mission, or a technical collaboration.",
       availability: {
         status: "Currently available",
         title: "Open to Opportunities",
-        desc: "Looking for internships, freelance work, or full-time positions in full stack development.",
+        desc: "Open to professional opportunities, including full-time positions, freelance projects, and collaborations.",
         location: "Open to remote",
-        response: "Usually responds within 24h",
+        response: "Typical response within 24–48h",
       },
       form: {
         name: "Name *",
@@ -135,14 +153,13 @@ export const translations = {
         email: "Email *",
         emailPlaceholder: "your@email.com",
         message: "Message *",
-        messagePlaceholder:
-          "Tell me about your project or opportunity...",
+        messagePlaceholder: "Tell me about your project or opportunity...",
         submit: "Send message",
         sending: "Sending...",
       },
       success: {
         title: "Message sent!",
-        desc: "Thanks for reaching out. I'll get back to you within 24–48 hours.",
+        desc: "Thanks for reaching out. I will get back to you within 24–48 hours.",
         again: "Send another message",
       },
       error: {
@@ -151,7 +168,7 @@ export const translations = {
     },
     footer: {
       backToTop: "Back to top",
-      copyright: "Designed & built with Next.js, TypeScript & Tailwind CSS.",
+      copyright: "Built with Next.js, TypeScript, and Tailwind CSS.",
     },
   },
 
@@ -163,44 +180,47 @@ export const translations = {
       experience: "Expérience",
       contact: "Contact",
       available: "Disponible",
-      hire: "Me recruter",
+      hire: "Me contacter",
     },
     hero: {
       available: "Ouvert aux opportunités",
       title: "Développeur Full Stack",
       titleAnd: "&",
       titleSub: "Mobile",
-      tagline: "Je conçois et développe des applications web et mobiles destinées à un usage réel — de l’idée jusqu’au déploiement en production.",
+      tagline:
+        "Je conçois et développe des applications web et mobiles, de l'interface utilisateur jusqu'aux API backend et aux bases de données.",
       cta_projects: "Voir les projets",
+      cta_resume: "Télécharger mon CV",
+      cta_resume_view: "Voir mon CV",
       cta_github: "GitHub",
       cta_linkedin: "LinkedIn",
       basedIn: "Basé à",
       scroll: "défiler",
-      codePassion: '"créer des produits qui fonctionnent"',
+      codePassion: '"Full Stack & Mobile · Architecture logicielle"',
     },
     about: {
       sectionNum: "01.",
-      sectionTitle: "À propos de moi",
+      sectionTitle: "À propos",
       paragraphs: [
-        "Je suis développeur Full Stack et Mobile basé à Madagascar. Je conçois, développe et livre des produits numériques complets — des plateformes web et applications mobiles qui passent en production et sont réellement utilisés.",
+        "Je suis développeur Full Stack & Mobile basé à Madagascar, actuellement en Master 2 en Génie Logiciel et Bases de Données à l'École Nationale d'Informatique (ENI Fianarantsoa).",
 
-        "Mes projets récents incluent NetPass, une plateforme de gestion hotspot et PPPoE en production avec intégration MikroTik RouterOS, ainsi que GeoHetra, un système de gestion fiscale municipale offline-first avec une application mobile Flutter pour les agents de terrain. Tous deux développés from scratch et déployés dans des contextes réels.",
+        "Mon travail couvre les plateformes web, les API backend et les applications mobiles — notamment HOTICKET, une plateforme multiservice de réservation développée en stage de Master 2 chez TANJAKAI, GeoHetra pour la gestion des impôts locaux avec une application mobile Flutter hors ligne, et NetPass pour l'administration de réseaux Hotspot et PPPoE avec MikroTik RouterOS.",
 
-        "Je travaille sur toute la stack — React et Next.js côté frontend, Flutter pour le mobile, Laravel et Node.js côté backend, MySQL et PostgreSQL pour les bases de données. Je renforce actuellement mes compétences en architecture logicielle dans le cadre d’un Master en Génie Logiciel à l’ENI Fianarantsoa."
+        "Je développe des solutions avec React, Next.js, TypeScript, Flutter, Laravel, PHP, Node.js, Express.js, NestJS, MySQL, PostgreSQL et Prisma, avec un intérêt marqué pour l'architecture logicielle, le Cloud et le DevOps.",
       ],
       traits: [
         {
-          title: "Full Stack + Mobile",
-          desc: "React, Next.js, Flutter, Laravel, Node.js — je développe des systèmes complets de l’interface utilisateur jusqu’à l’architecture backend."
+          title: "Full Stack & Mobile",
+          desc: "Développement complet d'applications web, d'API REST, de bases de données relationnelles et d'applications mobiles Flutter.",
         },
         {
-          title: "Conception de systèmes",
-          desc: "Conception d’API REST, systèmes offline-first, gestion des rôles, modélisation propre des données — je pense en architecture avant les fonctionnalités."
+          title: "Architecture logicielle",
+          desc: "Modélisation structurée des données, conception d'API modulaires, gestion des accès par rôles et synchronisation hors ligne.",
         },
         {
-          title: "Orientation production",
-          desc: "Les systèmes que je développe sont utilisés en environnement réel, avec un objectif clair de déploiement et de stabilité."
-        }
+          title: "Livraison & déploiement",
+          desc: "Conteneurisation avec Docker, déploiement web sur des plateformes comme Render et Vercel, et montée en compétence continue en Cloud & DevOps.",
+        },
       ],
       stats: {
         projects: "Projets réalisés",
@@ -210,6 +230,9 @@ export const translations = {
       },
       card: {
         openToWork: "Ouvert aux opportunités",
+        role: "Développeur Full Stack & Mobile",
+        academic:
+          "Master 2 en Génie Logiciel et Bases de Données — École Nationale d'Informatique (ENI Fianarantsoa)",
         location: "Localisation",
         focus: "Spécialité",
         status: "Statut",
@@ -221,69 +244,81 @@ export const translations = {
     },
     stack: {
       sectionNum: "02.",
-      sectionTitle: "Stack Technique",
+      sectionTitle: "Stack technique",
       sectionDesc:
-        "Les technologies que j'utilise au quotidien pour architecturer, construire et livrer des applications full stack.",
+        "Les technologies et outils que j'utilise pour concevoir, développer et déployer des applications web et mobiles.",
       filterAll: "Tout",
       filterPrimary: "Stack principal",
-      filterSecondary: "Aussi à l'aise avec",
+      filterSecondary: "Compétences complémentaires",
       labelPrimary: "— Technologies principales",
+      labelSecondary: "— Compétences complémentaires",
     },
     projects: {
       sectionNum: "03.",
-      sectionTitle: "Projets en vedette",
+      sectionTitle: "Projets sélectionnés",
       sectionDesc:
-        "Des applications réelles construites avec du code de qualité production, une architecture propre et une UX réfléchie.",
+        "Applications web et mobiles développées dans le cadre de stages, de missions freelance et de projets académiques.",
       viewDetails: "Voir les détails",
       viewGithub: "Dépôt GitHub",
-      viewLive: "Démo live",
+      viewLive: "Démo en ligne",
       sourceOnRequest: "Code source disponible sur demande",
+      privateRepo: "Code source privé",
+      inProgressBadge: "Stage M2 · En cours de développement",
+      screenshotsSoon: "Captures d'écran prochainement disponibles.",
+      openGallery: "Ouvrir la galerie",
+      screenshotsCount: "captures",
+      groupCurrent: "Projet actuel",
+      groupKey: "Réalisations principales",
+      groupOther: "Autres projets",
       seeMore: "Voir plus sur GitHub",
       screenshots: "Captures d'écran",
       noScreenshots: "Aucune capture disponible pour l'instant",
       close: "Fermer",
-      tags: "Stack utilisé",
+      tags: "Technologies",
       prevImg: "Précédent",
       nextImg: "Suivant",
+      readMore: "Voir plus",
+      readLess: "Voir moins",
     },
     experience: {
       sectionNum: "04.",
-      sectionTitle: "Expérience",
-      sectionDesc: "Mon parcours à travers le travail, les projets et la formation.",
+      sectionTitle: "Expérience & Formation",
+      sectionDesc:
+        "Stages, réalisations freelance et parcours académique en Génie Logiciel et Bases de Données.",
       profile: {
-        title: "Profil d'ingénieur",
-        approach: "Approche",
-        approachVal: "Full Stack d'abord",
+        title: "Profil technique",
+        approach: "Positionnement",
+        approachVal: "Full Stack & Mobile",
         strength: "Point fort",
-        strengthVal: "Backend + API Design",
+        strengthVal: "Backend & conception d'API",
         interest: "Intérêt",
-        interestVal: "Architecture système",
-        learning: "En apprentissage",
+        interestVal: "Architecture logicielle",
+        learning: "Veille",
         learningVal: "Cloud & DevOps",
       },
       legend: {
         title: "Légende",
-        work: "Expérience professionnelle",
-        project: "Expérience projet",
+        work: "Stages",
+        project: "Projets",
         education: "Formation",
       },
       cta: {
-        title: "Envie de collaborer ?",
-        sub: "Construisons quelque chose ensemble",
+        title: "Ouvert aux échanges",
+        sub: "Premier emploi, CDI, missions freelance ou collaborations.",
         link: "Me contacter →",
       },
     },
     contact: {
       sectionNum: "05.",
-      sectionTitle: "Me contacter",
+      sectionTitle: "Contact",
       sectionDesc:
-        "Vous avez un projet en tête ou souhaitez discuter d'opportunités ? Je serais ravi d'échanger.",
+        "N'hésitez pas à me contacter pour discuter d'un poste, d'une mission freelance ou d'une collaboration technique.",
       availability: {
         status: "Actuellement disponible",
         title: "Ouvert aux opportunités",
-        desc: "Je recherche des stages, missions freelance ou postes à temps plein en développement full stack.",
+        desc: "Ouvert aux opportunités professionnelles : premier emploi, CDI, missions freelance et collaborations.",
         location: "Ouvert au télétravail",
-        response: "Répond généralement sous 24h",
+        response: "Réponse généralement sous 24 à 48h",
       },
       form: {
         name: "Nom *",
@@ -291,14 +326,13 @@ export const translations = {
         email: "Email *",
         emailPlaceholder: "votre@email.com",
         message: "Message *",
-        messagePlaceholder:
-          "Parlez-moi de votre projet ou opportunité...",
+        messagePlaceholder: "Parlez-moi de votre projet ou opportunité...",
         submit: "Envoyer le message",
         sending: "Envoi en cours...",
       },
       success: {
         title: "Message envoyé !",
-        desc: "Merci de m'avoir contacté. Je vous répondrai sous 24 à 48 heures.",
+        desc: "Merci pour votre message. Je vous répondrai sous 24 à 48 heures.",
         again: "Envoyer un autre message",
       },
       error: {
@@ -307,7 +341,7 @@ export const translations = {
     },
     footer: {
       backToTop: "Haut de page",
-      copyright: "Conçu & développé avec Next.js, TypeScript & Tailwind CSS.",
+      copyright: "Développé avec Next.js, TypeScript et Tailwind CSS.",
     },
   },
 } as const;

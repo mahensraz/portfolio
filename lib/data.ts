@@ -1,4 +1,9 @@
-import type { ExperienceItem, Project } from "@/types";
+import type {
+  ExperienceItem,
+  LocalizedString,
+  LocalizedStringArray,
+  Project,
+} from "@/types";
 import type { IconType } from "react-icons";
 import {
   SiDocker,
@@ -6,6 +11,7 @@ import {
   SiFlutter,
   SiGithub,
   SiJavascript,
+  SiJenkins,
   SiLaravel,
   SiLinux,
   SiMysql,
@@ -16,15 +22,28 @@ import {
   SiPhp,
   SiPostgresql,
   SiPostman,
+  SiPrisma,
   SiReact,
   SiTailwindcss,
   SiTypescript,
-  SiJenkins,
 } from "react-icons/si";
 
 import { FaNetworkWired, FaServer } from "react-icons/fa";
 import { MdApi } from "react-icons/md";
 
+export function getLocalizedText(
+  value: LocalizedString,
+  lang: "en" | "fr",
+): string {
+  return typeof value === "string" ? value : value[lang];
+}
+
+export function getLocalizedList(
+  value: LocalizedStringArray,
+  lang: "en" | "fr",
+): string[] {
+  return Array.isArray(value) ? value : value[lang];
+}
 
 export const NAV_HREF = {
   about: "#about",
@@ -35,7 +54,7 @@ export const NAV_HREF = {
 };
 
 type TechStackItem = {
-  name: string;
+  name: LocalizedString;
   icon: IconType;
   color: string;
 };
@@ -62,6 +81,7 @@ export const TECH_STACK = {
     // Data
     { name: "MySQL", icon: SiMysql, color: "#4479A1" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "#336791" },
+    { name: "Prisma", icon: SiPrisma, color: "#5A67D8" },
 
     // Tools
     { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
@@ -72,37 +92,100 @@ export const TECH_STACK = {
   ] satisfies TechStackItem[],
   secondary: [
     { name: "Linux", icon: SiLinux, color: "#FCC624" },
-
-    { name: "Networking", icon: FaNetworkWired, color: "#5DADE2" },
-
-    { name: "REST APIs", icon: MdApi, color: "#4F8EF7" },
-
-    { name: "DevOps basics", icon: FaServer, color: "#22D3EE" },
-
-    { name: "System Administration", icon: SiNginx, color: "#009639" },
+    {
+      name: { en: "Networking", fr: "Réseaux" },
+      icon: FaNetworkWired,
+      color: "#5DADE2",
+    },
+    {
+      name: { en: "REST APIs", fr: "API REST" },
+      icon: MdApi,
+      color: "#4F8EF7",
+    },
+    {
+      name: { en: "DevOps Basics", fr: "Bases DevOps" },
+      icon: FaServer,
+      color: "#22D3EE",
+    },
+    {
+      name: { en: "System Administration", fr: "Administration système" },
+      icon: SiNginx,
+      color: "#009639",
+    },
   ] satisfies TechStackItem[],
 };
 
 // ─── Projects ────────────────────────────────────────────────────────────────
 
 export const PROJECTS: Project[] = [
-  // Netpass app
+  // HOTICKET (M2 Internship at TANJAKAI)
   {
-    "id": "netpass",
-    "title": "NetPass",
-    "description": {
-      "en": "Hotspot & PPPoE management platform with MikroTik integration and real-time analytics.",
-      "fr": "Plateforme de gestion Hotspot & PPPoE avec intégration MikroTik et analytics en temps réel."
+    id: "hoticket",
+    title: "HOTICKET",
+    description: {
+      en: "HOTICKET is a multiservice booking platform developed as part of my Master's internship in Software Engineering and Databases at TANJAKAI. The project covers several sectors, including accommodation, transportation, restaurants, and events. I contribute to the platform's Full Stack development, from the Next.js, React, and TypeScript frontend to the Express.js, PostgreSQL, and Prisma backend.",
+      fr: "HOTICKET est une plateforme multiservice de réservation développée dans le cadre de mon stage de Master 2 en Génie Logiciel et Bases de Données chez TANJAKAI. Le projet couvre plusieurs secteurs, notamment l'hébergement, le transport, la restauration et les événements. J'interviens sur le développement Full Stack de la plateforme, du frontend Next.js, React et TypeScript au backend Express.js, PostgreSQL et Prisma.",
     },
-    "longDescription": {
-      "en": "NetPass is a complete hotspot and PPPoE management platform designed for ISPs and network operators. It centralizes user management, subscriptions, billing, voucher generation and active session monitoring in a single dashboard. The platform integrates directly with MikroTik RouterOS to automate provisioning, bandwidth policies and session lifecycle management. It also exposes a REST API for integrations and provides real-time analytics, reporting and responsive administration tools.",
-      "fr": "NetPass est une plateforme de gestion complète pour les hotspots et les services PPPoE, conçue pour les FAI et les opérateurs de réseaux. Elle centralise la gestion des utilisateurs, des abonnements, de la facturation, de la génération de vouchers et du suivi des sessions actives sur un seul tableau de bord. La plateforme s'intègre directement avec MikroTik RouterOS pour automatiser le provisionnement, les politiques de bande passante et la gestion du cycle de vie des sessions. Elle expose également une API REST pour les intégrations et fournit des analyses en temps réel, des rapports et des outils d'administration réactifs."
+    longDescription: {
+      en: "HOTICKET is a multiservice booking platform developed as part of my Master's internship in Software Engineering and Databases at TANJAKAI. The project covers several sectors, including accommodation, transportation, restaurants, and events. I contribute to the platform's Full Stack development, from the Next.js, React, and TypeScript frontend to the Express.js, PostgreSQL, and Prisma backend.\n\nCurrently in development around a modular architecture, the platform provides dedicated spaces planned for customers, partners, and administrators to simplify booking journeys, service and establishment management, and partner activity monitoring.",
+      fr: "HOTICKET est une plateforme multiservice de réservation développée dans le cadre de mon stage de Master 2 en Génie Logiciel et Bases de Données chez TANJAKAI. Le projet couvre plusieurs secteurs, notamment l'hébergement, le transport, la restauration et les événements. J'interviens sur le développement Full Stack de la plateforme, du frontend Next.js, React et TypeScript au backend Express.js, PostgreSQL et Prisma.\n\nActuellement en cours de développement autour d'une architecture modulaire, la plateforme prévoit des espaces dédiés aux clients, aux partenaires et aux administrateurs afin de simplifier les parcours de réservation, la gestion des établissements et des offres, ainsi que le suivi des activités des partenaires.",
     },
-    "tags": ["PHP", "MySQL", "RouterOS API", "Tailwind CSS", "REST API", "Docker"],
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+    ],
     category: "Full Stack",
-    github: "https://github.com/mahensraz/netpass",   // ← replace with real URL
     images: [
-      // Replace these with your actual screenshot paths in /public/screenshots/
+      "/screenshots/hoticket/Acceuil.png",
+      "/screenshots/hoticket/Booking Hotels.png",
+      "/screenshots/hoticket/Details Hotels.png",
+      "/screenshots/hoticket/Details Hotels 2.png",
+      "/screenshots/hoticket/Espace administrateur.png",
+      "/screenshots/hoticket/espace operateur de transport.png",
+      "/screenshots/hoticket/creation de compte merchant.png",
+      "/screenshots/hoticket/Page de connexion.png",
+    ],
+    featured: true,
+    icon: "🎫",
+  },
+
+  // NetPass
+  {
+    id: "netpass",
+    title: "NetPass",
+    description: {
+      en: "Hotspot and PPPoE network management platform built with native PHP, MySQL, MikroTik RouterOS API integration, and Docker.",
+      fr: "Plateforme de gestion des réseaux Hotspot et PPPoE développée en PHP natif avec MySQL, intégration de l'API MikroTik RouterOS et Docker.",
+    },
+    longDescription: {
+      en: "NetPass is a hotspot and PPPoE management platform designed for Internet service providers and network operators. It centralizes user management, subscriptions, billing, connection voucher generation, and active session monitoring.\n\nThrough its MikroTik RouterOS API integration, the platform automates several network device and connection management operations. Built with native PHP and MySQL, the application is containerized with Docker and published on GitHub and Docker Hub.",
+      fr: "NetPass est une plateforme de gestion des réseaux Hotspot et PPPoE destinée aux fournisseurs d'accès Internet et aux opérateurs réseau. Elle centralise la gestion des utilisateurs, des abonnements, de la facturation, de la génération des tickets de connexion et du suivi des sessions actives.\n\nGrâce à son intégration avec l'API MikroTik RouterOS, elle permet d'automatiser plusieurs opérations de gestion des équipements et des connexions réseau. Développé en PHP natif avec MySQL, le projet est conteneurisé avec Docker et dispose d'un dépôt GitHub public ainsi que d'une publication sur Docker Hub.",
+    },
+    tags: {
+      en: [
+        "PHP",
+        "MySQL",
+        "MikroTik RouterOS API",
+        "Docker",
+        "REST API",
+        "Tailwind CSS",
+      ],
+      fr: [
+        "PHP",
+        "MySQL",
+        "MikroTik RouterOS API",
+        "Docker",
+        "API REST",
+        "Tailwind CSS",
+      ],
+    },
+    category: "Full Stack",
+    github: "https://github.com/mahensraz/netpass",
+    images: [
       "/screenshots/netpass_app/Page_de_connexion.png",
       "/screenshots/netpass_app/Admin_Dashboard.png",
       "/screenshots/netpass_app/Configuration_Router.png",
@@ -118,36 +201,49 @@ export const PROJECTS: Project[] = [
       "/screenshots/netpass_app/Session_Active.png",
       "/screenshots/netpass_app/vendeur/Historique_des-Ventes.png",
       "/screenshots/netpass_app/vendeur/Page_connexion_router-hors_ligne.png",
-
     ],
     featured: true,
     icon: "📡",
   },
 
-  // GeoHetra app
+  // GeoHetra
   {
     id: "impot-local",
     title: "GeoHetra",
     description: {
-      en: "Offline-first municipal management platform combining a React web dashboard and a Flutter mobile application for field data collection, automated tax calculation, and geospatial monitoring for local governments.",
-      fr: "Plateforme de gestion municipale offline-first combinant un tableau de bord web React et une application mobile Flutter pour la collecte de données terrain, le calcul automatique des impôts locaux et le suivi cartographique des zones administratives."
+      en: "Local tax management solution for municipalities combining a React web dashboard, an offline-first Flutter mobile app, and a Laravel/MySQL REST API.",
+      fr: "Solution complète de gestion des impôts locaux pour les collectivités, combinant un tableau de bord web React, une application mobile Flutter offline-first et une API REST Laravel/MySQL.",
     },
     longDescription: {
-      en: "GeoHetra is a complete digital solution designed to modernize local tax collection for municipalities. It replaces traditional paper-based processes with a centralized and reliable system. The platform is built on three main components: a React-based web dashboard for administrators (zone and agent management, tax configuration, payment tracking, and interactive mapping); a Flutter mobile application for field agents that operates fully offline, allowing data collection, forms, and embedded maps without internet connectivity, with automatic synchronization once a connection is restored; and a Laravel REST API backend with MySQL for secure data storage, synchronization, and reporting. Key features include automated tax computation based on property attributes, generation of tax notices, real-time payment tracking, and an interactive Leaflet/OpenStreetMap visualization showing covered and uncovered areas. The system implements role-based access control for administrators, field agents, and decision-makers.",
-      fr: "GeoHetra est une solution complète conçue pour moderniser la gestion des impôts locaux au niveau des collectivités. Elle remplace les processus papier par un système centralisé, fiable et évolutif. La plateforme repose sur trois composants principaux : un tableau de bord web en React pour les administrateurs (gestion des zones et des agents, configuration des taxes, suivi des paiements et cartographie interactive) ; une application mobile Flutter pour les agents de terrain fonctionnant entièrement hors ligne, permettant la collecte de données, les formulaires et les cartes intégrées sans connexion internet, avec synchronisation automatique dès le retour du réseau ; et une API REST Laravel avec MySQL pour le stockage sécurisé, la synchronisation et la génération de rapports. Les fonctionnalités principales incluent le calcul automatique des impôts selon les caractéristiques des biens, la génération des avis d’imposition, le suivi des paiements en temps réel et une visualisation cartographique Leaflet/OpenStreetMap des zones couvertes et non couvertes. Le système intègre une gestion des accès par rôles (administrateurs, agents, décideurs)."
+      en: "GeoHetra is a comprehensive solution designed to modernize local tax management for municipalities. It replaces paper-based processes with a centralized system combining web administration, mobile field data collection, and geospatial management.\n\nThe platform consists of a React dashboard for administrators, an offline-first Flutter application for field agents, and a Laravel REST API with MySQL for data storage, synchronization, and reporting.\n\nIts main features include zone and agent management, tax configuration, automatic tax calculation based on property characteristics, tax notice generation, and payment tracking. Interactive mapping powered by Leaflet and OpenStreetMap helps visualize covered and uncovered areas.\n\nThe system also includes role-based access control and automatic synchronization of field data when an internet connection becomes available. The application has been deployed on Render and Vercel.",
+      fr: "GeoHetra est une solution complète conçue pour moderniser la gestion des impôts locaux des collectivités. Elle remplace les processus papier par un système centralisé associant administration web, collecte mobile et gestion des données géographiques.\n\nLa plateforme comprend un tableau de bord React destiné aux administrateurs, une application Flutter pour les agents de terrain fonctionnant entièrement hors ligne et une API REST Laravel avec MySQL pour le stockage, la synchronisation et la génération de rapports.\n\nElle permet notamment de gérer les zones et les agents, de configurer les taxes, de calculer automatiquement les impôts selon les caractéristiques des biens, de générer les avis d'imposition et de suivre les paiements. La cartographie interactive s'appuie sur Leaflet et OpenStreetMap pour visualiser les zones couvertes et non couvertes.\n\nLe système intègre également une gestion des accès par rôles et un mécanisme de synchronisation automatique des données collectées sur le terrain. Le projet a été déployé sur Render et Vercel.",
     },
-    tags: [
-      "React",
-      "Flutter",
-      "Laravel",
-      "MySQL",
-      "REST API",
-      "Leaflet",
-      "OpenStreetMap",
-      "Offline-first architecture",
-      "Data Synchronization"
-    ],
-    category: "Full Stack · Mobile · Civic Tech",
+    tags: {
+      en: [
+        "React",
+        "Flutter",
+        "Laravel",
+        "MySQL",
+        "REST API",
+        "Leaflet",
+        "OpenStreetMap",
+        "Offline-first",
+      ],
+      fr: [
+        "React",
+        "Flutter",
+        "Laravel",
+        "MySQL",
+        "API REST",
+        "Leaflet",
+        "OpenStreetMap",
+        "Offline-first",
+      ],
+    },
+    category: {
+      en: "Full Stack · Mobile · Civic Tech",
+      fr: "Full Stack · Mobile · Collectivités",
+    },
     github: "https://github.com/mahensraz/gestion-impots-locaux",
     images: [
       "/screenshots/impot_app/dashboard.png",
@@ -166,36 +262,50 @@ export const PROJECTS: Project[] = [
       "/screenshots/impot_app/mobile/ajout_logement.png",
       "/screenshots/impot_app/mobile/ajout_ifpb.png",
       "/screenshots/impot_app/mobile/export_data.png",
-      "/screenshots/impot_app/mobile/Screenshot_20251210-154029.png"
+      "/screenshots/impot_app/mobile/Screenshot_20251210-154029.png",
     ],
     featured: true,
-    icon: "🏛️"
+    icon: "🏛️",
   },
 
-
-  // Complaint management app
+  // Gestion des doléances — TAKALOU
   {
     id: "complaint-system",
-    title: "Complaint_app",
+    title: {
+      en: "TAKALOU — Complaint Management System",
+      fr: "Gestion des doléances — TAKALOU",
+    },
     description: {
-      en: "Full stack web platform for complaint management with automatic priority scoring, geolocation mapping, and multi-role workflows — built during internship at TAKALOU, Fort-Dauphin.",
-      fr: "Plateforme web full stack de gestion des doléances avec priorisation automatique, cartographie géolocalisée et workflows multi-rôles — réalisée en stage chez TAKALOU, Fort-Dauphin.",
+      en: "Full stack web platform for complaint management with automatic priority scoring, interactive geolocation mapping, and multi-role workflows, built during an internship at TAKALOU Sarl.",
+      fr: "Plateforme web full stack de gestion des doléances avec priorisation automatique, cartographie géolocalisée et workflows multi-rôles, développée lors d'un stage chez TAKALOU Sarl.",
     },
     longDescription: {
-      en: "Designed and developed during a 3-month internship at TAKALOU Sarl (Fort-Dauphin), this application digitizes the entire complaint management lifecycle — previously handled on paper. Three types of users interact with the system: citizens (complainants) who submit complaints online with geolocation and file attachments; technicians who consult and process their assigned complaints via interactive maps; and administrators who oversee the full pipeline through a real-time dashboard. The backend (Laravel/MySQL) handles automatic priority scoring based on complaint type weight, assignment workflows with automated notifications at each status change, and role-based access control. The frontend (ReactJS + Material UI) integrates Leaflet with the LocationIQ geocoding API to display color-coded complaint markers on an interactive map (red = urgent, blue = high, green = medium, grey = low priority). The system follows a 3-tier MVC architecture designed and modeled with the 2TUP method and UML.",
-      fr: "Conçue et développée lors d'un stage de 3 mois chez TAKALOU Sarl (Fort-Dauphin), cette application digitalise l'intégralité du cycle de vie des doléances — gérées manuellement sur papier auparavant. Trois types d'utilisateurs interagissent avec le système : les plaignants qui soumettent leurs doléances en ligne avec géolocalisation et pièces jointes ; les techniciens qui consultent et traitent les doléances qui leur sont assignées via des cartes interactives ; et les administrateurs qui supervisent l'ensemble du processus via un tableau de bord en temps réel. Le backend (Laravel/MySQL) gère la priorisation automatique selon un score par type de doléance, les workflows d'affectation avec notifications automatiques à chaque changement de statut, et le contrôle d'accès par rôle. Le frontend (ReactJS + Material UI) intègre Leaflet avec l'API de géocodage LocationIQ pour afficher des marqueurs colorés sur une carte interactive (rouge = urgent, bleu = forte priorité, vert = moyenne, gris = faible). Le système suit une architecture MVC 3 tiers, conçu et modélisé avec la méthode 2TUP et UML.",
+      en: "Designed and developed during a 3-month internship at TAKALOU Sarl in Fort-Dauphin, this web application digitizes the complaint management lifecycle previously handled on paper.\n\nThree user roles interact with the platform: complainants who submit requests online with geolocation and attachments, technicians who consult and process assigned complaints through interactive maps, and administrators who oversee operations from a real-time dashboard.\n\nThe Laravel and MySQL backend handles automatic priority scoring by complaint type, assignment workflows with status notifications, and role-based access control. The React and Material UI frontend integrates Leaflet and the LocationIQ geocoding API to display color-coded markers on an interactive map. The application follows a 3-tier MVC architecture modeled with UML and the 2TUP method.",
+      fr: "Conçue et développée lors d'un stage de trois mois chez TAKALOU Sarl à Fort-Dauphin, cette application web digitalise l'ensemble du cycle de traitement des doléances, auparavant gérées sur papier.\n\nTrois profils d'utilisateurs interagissent sur la plateforme : les plaignants qui soumettent leurs doléances en ligne avec géolocalisation et pièces jointes, les techniciens qui consultent et traitent les demandes qui leur sont affectées via des cartes interactives, et les administrateurs qui supervisent l'activité depuis un tableau de bord.\n\nLe backend Laravel et MySQL prend en charge la priorisation automatique selon le type de doléance, les workflows d'affectation avec notifications à chaque changement de statut ainsi que la gestion des accès par rôles. Le frontend React et Material UI intègre Leaflet et l'API de géocodage LocationIQ pour afficher des marqueurs colorés par niveau de priorité. Le projet repose sur une architecture MVC trois tiers, modélisée avec UML et la méthode 2TUP.",
     },
-    tags: [
-      "ReactJS",
-      "Laravel",
-      "MySQL",
-      "REST API",
-      "Leaflet",
-      "LocationIQ API",
-      "Material UI",
-      "MVC",
-    ],
-    category: "Enterprise",
+    tags: {
+      en: [
+        "React",
+        "Laravel",
+        "MySQL",
+        "REST API",
+        "Leaflet",
+        "LocationIQ API",
+        "Material UI",
+        "MVC",
+      ],
+      fr: [
+        "React",
+        "Laravel",
+        "MySQL",
+        "API REST",
+        "Leaflet",
+        "LocationIQ API",
+        "Material UI",
+        "MVC",
+      ],
+    },
+    category: { en: "Enterprise", fr: "Entreprise" },
     github: "https://github.com/mahensraz/gestion-doleances",
     images: [
       "/screenshots/doleance_app/Baniere2.png",
@@ -213,21 +323,19 @@ export const PROJECTS: Project[] = [
     icon: "📋",
   },
 
-
-
-  // agriconnect app
+  // AgriConnect
   {
-    "id": "agri-connect",
-    "title": "AgriConnect",
-    "description": {
-      "en": "Agricultural marketplace platform connecting farmers and collectors with product management, map-based discovery, order workflows, real-time messaging, and analytics.",
-      "fr": "Plateforme de mise en relation agricole entre paysans et collecteurs avec gestion des produits, recherche cartographique, workflows de commandes, messagerie temps réel et tableaux de bord analytiques."
+    id: "agri-connect",
+    title: "AgriConnect",
+    description: {
+      en: "Academic agritech platform connecting farmers and collectors with product management, map-based discovery, order workflows, and real-time messaging.",
+      fr: "Plateforme web agritech académique mettant en relation producteurs et collecteurs avec gestion des produits, recherche cartographique, suivi des commandes et messagerie temps réel.",
     },
-    "longDescription": {
-      "en": "AgriConnect is a multi-role agritech web platform designed to streamline agricultural trade between farmers, collectors, and administrators. Farmers can publish and manage their products, track availability, and monitor order activity through a dedicated dashboard. Collectors can discover products using an interactive map, filter results by region and distance, create purchase requests, and negotiate through a built-in messaging system. The application also includes analytics views, role-based access control, profile management, and an admin area for supervising users, products, orders, and platform activity. The backend was built with NestJS and PostgreSQL, while the frontend uses React, TypeScript, Vite, Tailwind CSS, Radix UI, Leaflet, Socket.IO, React Hook Form, Axios, and Recharts.",
-      "fr": "AgriConnect est une plateforme web agritech multi-rôles conçue pour simplifier les échanges agricoles entre paysans, collecteurs et administrateurs. Les paysans peuvent publier et gérer leurs produits, suivre leur disponibilité et visualiser l’activité liée aux commandes via un tableau de bord dédié. Les collecteurs peuvent découvrir les produits à l’aide d’une carte interactive, filtrer les résultats par région et par distance, créer des demandes d’achat et négocier via un système de messagerie intégré. L’application inclut aussi des vues analytiques, une gestion des accès par rôles, la gestion de profil et un espace administrateur pour superviser les utilisateurs, les produits, les commandes et l’activité de la plateforme. Le back-end a été développé avec NestJS et PostgreSQL, tandis que le frontend utilise React, TypeScript, Vite, Tailwind CSS, Radix UI, Leaflet, Socket.IO, React Hook Form, Axios et Recharts."
+    longDescription: {
+      en: "AgriConnect is a multi-role agritech web platform developed as an academic project at ENI to facilitate agricultural trade between farmers, collectors, and administrators.\n\nFarmers can publish and manage their products, track availability, and monitor order activity through a dedicated dashboard. Collectors can browse listings on an interactive map, filter by region and distance, create purchase requests, and negotiate through an integrated real-time messaging system. An administration area oversees users, products, orders, and platform analytics.\n\nThe backend is built with NestJS and PostgreSQL, paired with a React, TypeScript, Vite, Tailwind CSS, and Radix UI frontend integrating Leaflet and Socket.IO.",
+      fr: "AgriConnect est une plateforme web agritech multi-rôles réalisée dans le cadre d'un projet académique à l'ENI pour faciliter les échanges agricoles entre producteurs, collecteurs et administrateurs.\n\nLes producteurs peuvent publier et gérer leurs produits, suivre leur disponibilité et consulter l'activité liée aux commandes depuis un tableau de bord dédié. Les collecteurs peuvent rechercher des offres sur une carte interactive, filtrer par région et par distance, créer des demandes d'achat et échanger via une messagerie temps réel intégrée. Un espace administrateur permet de superviser les utilisateurs, les produits, les commandes et les indicateurs d'activité.\n\nLe backend repose sur NestJS et PostgreSQL, associé à un frontend React, TypeScript, Vite, Tailwind CSS et Radix UI intégrant Leaflet et Socket.IO.",
     },
-    "tags": [
+    tags: [
       "React",
       "NestJS",
       "PostgreSQL",
@@ -238,7 +346,7 @@ export const PROJECTS: Project[] = [
       "Leaflet",
       "Socket.IO",
     ],
-    "category": "Agritech",
+    category: "Agritech",
     github: "https://github.com/Andohenri/agriConnect",
     images: [
       "/screenshots/agriconnect_app/login.png",
@@ -249,15 +357,37 @@ export const PROJECTS: Project[] = [
       "/screenshots/agriconnect_app/img1.jpeg",
       "/screenshots/agriconnect_app/discussion.png",
     ],
-    "featured": true,
-    "icon": "🌾"
+    featured: true,
+    icon: "🌾",
   },
-
 ];
 
 // ─── Experience ───────────────────────────────────────────────────────────────
 
 export const EXPERIENCE: ExperienceItem[] = [
+  // ── Stage Master 2 ───────────────────────────────────────────────────────────
+  {
+    id: "hoticket-internship",
+    role: {
+      en: "Full Stack Developer — Master's Intern",
+      fr: "Développeur Full Stack — Stagiaire de Master 2",
+    },
+    company: "TANJAKAI · HOTICKET",
+    period: { en: "In progress", fr: "En cours" },
+    description: {
+      en: "Full Stack development of a multiservice booking platform as part of my Master's internship in Software Engineering and Databases. Contributing to the design and development of the frontend with Next.js, React, and TypeScript, as well as the backend with Express.js, PostgreSQL, and Prisma.",
+      fr: "Développement Full Stack d'une plateforme multiservice de réservation dans le cadre de mon stage de Master 2 en Génie Logiciel et Bases de Données. Contribution à la conception et au développement du frontend avec Next.js, React et TypeScript, ainsi qu'au backend avec Express.js, PostgreSQL et Prisma.",
+    },
+    tags: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+    ],
+    type: "work",
+  },
 
   // ── Projets Freelance ────────────────────────────────────────────────────────
   {
@@ -269,10 +399,27 @@ export const EXPERIENCE: ExperienceItem[] = [
     company: "Freelance",
     period: { en: "April – May 2026", fr: "Avril – Mai 2026" },
     description: {
-      en: "Architected and shipped a production-grade hotspot and PPPoE management platform with direct MikroTik RouterOS API integration, subscription billing, and real-time analytics dashboard.",
-      fr: "Architecture et livraison d'une plateforme de gestion hotspot et PPPoE en production avec intégration directe de l'API MikroTik RouterOS, facturation par abonnement et tableau de bord analytique en temps réel.",
+      en: "Designed and delivered a Hotspot and PPPoE network management platform in native PHP and MySQL, integrating the MikroTik RouterOS API for device and connection management, subscription billing, and voucher generation. Containerized with Docker and published on GitHub and Docker Hub.",
+      fr: "Conception et livraison d'une plateforme de gestion des réseaux Hotspot et PPPoE en PHP natif et MySQL, intégrant l'API MikroTik RouterOS pour la gestion des équipements et connexions, la facturation par abonnement et la génération de tickets. Conteneurisée avec Docker et publiée sur GitHub et Docker Hub.",
     },
-    tags: ["Laravel", "PHP", "MySQL", "MikroTik API", "REST API", "Freelance"],
+    tags: {
+      en: [
+        "PHP",
+        "MySQL",
+        "MikroTik RouterOS API",
+        "Docker",
+        "REST API",
+        "Freelance",
+      ],
+      fr: [
+        "PHP",
+        "MySQL",
+        "MikroTik RouterOS API",
+        "Docker",
+        "API REST",
+        "Freelance",
+      ],
+    },
     type: "project",
   },
 
@@ -285,10 +432,18 @@ export const EXPERIENCE: ExperienceItem[] = [
     company: "Freelance",
     period: { en: "September – December 2025", fr: "Septembre – Décembre 2025" },
     description: {
-      en: "Designed and built an offline-first civic platform for local tax management, combining a React web dashboard for administrators and a Flutter mobile app for field agents with automatic sync.",
-      fr: "Conception et développement d'une plateforme civique offline-first pour la gestion des impôts locaux, combinant un tableau de bord React pour les administrateurs et une application mobile Flutter pour les agents de terrain avec synchronisation automatique.",
+      en: "Designed and built a local tax management solution for municipalities combining a React web dashboard, an offline-first Flutter mobile app for field agents with automatic data synchronization, and a Laravel/MySQL REST API with Leaflet and OpenStreetMap mapping. Deployed on Render and Vercel.",
+      fr: "Conception et développement d'une solution de gestion des impôts locaux pour les collectivités combinant un tableau de bord web React, une application mobile Flutter offline-first pour les agents de terrain avec synchronisation automatique des données, et une API REST Laravel/MySQL avec cartographie Leaflet et OpenStreetMap. Déployée sur Render et Vercel.",
     },
-    tags: ["React", "Flutter", "Laravel", "MySQL", "Offline-first", "Leaflet", "Freelance"],
+    tags: [
+      "React",
+      "Flutter",
+      "Laravel",
+      "MySQL",
+      "Offline-first",
+      "Leaflet",
+      "Freelance",
+    ],
     type: "project",
   },
 
@@ -296,33 +451,58 @@ export const EXPERIENCE: ExperienceItem[] = [
   {
     id: "internship-takalou",
     role: {
-      en: "Software Developer Intern — L3 Internship",
-      fr: "Développeur Logiciel — Stage de Licence",
+      en: "Full Stack Developer Intern — Bachelor's Internship",
+      fr: "Développeur Full Stack Stagiaire — Stage de Licence",
     },
     company: "TAKALOU Sarl, Fort-Dauphin",
     period: { en: "August – October 2024", fr: "Août – Octobre 2024" },
     description: {
-      en: "Built a full production complaint management system during a 3-month internship: geolocation-based routing, automatic priority scoring, technician assignment workflows, and multi-role dashboards.",
-      fr: "Développement en production d'un système de gestion des doléances durant un stage de 3 mois : routage géolocalisé, priorisation automatique, workflows d'affectation aux techniciens et tableaux de bord multi-rôles.",
+      en: "Developed a web complaint management platform during a 3-month internship: UML and 2TUP modeling, 3-tier MVC architecture with React and Laravel/MySQL, automatic priority scoring, geolocation mapping (Leaflet, LocationIQ), assignment workflows, and multi-role dashboards.",
+      fr: "Développement d'une plateforme web de gestion des doléances lors d'un stage de trois mois : modélisation UML et méthode 2TUP, architecture MVC trois tiers avec React et Laravel/MySQL, priorisation automatique, cartographie géolocalisée (Leaflet, LocationIQ), workflows d'affectation et tableaux de bord multi-rôles.",
     },
-    tags: ["ReactJS", "Laravel", "MySQL", "Leaflet", "Stage Licence", "Production"],
+    tags: {
+      en: ["React", "Laravel", "MySQL", "Leaflet", "Bachelor's Internship"],
+      fr: ["React", "Laravel", "MySQL", "Leaflet", "Stage de Licence"],
+    },
     type: "work",
   },
 
-  // ── Projet Scolaire ──────────────────────────────────────────────────────────
+  // ── Projet Académique ────────────────────────────────────────────────────────
   {
     id: "agriconnect-school",
     role: {
-      en: "Full Stack Developer — AgriConnect (School Project)",
-      fr: "Développeur Full Stack — AgriConnect (Projet Scolaire)",
+      en: "Full Stack Developer — AgriConnect (Academic Project)",
+      fr: "Développeur Full Stack — AgriConnect (Projet académique)",
     },
-    company: "École Nationale d'Informatique (ENI)",
+    company: {
+      en: "National School of Informatics (ENI Fianarantsoa)",
+      fr: "École Nationale d'Informatique (ENI Fianarantsoa)",
+    },
     period: { en: "June 2025", fr: "Juin 2025" },
     description: {
-      en: "Developed a multi-role agritech marketplace as a school project, connecting farmers and collectors through product listings, interactive map discovery, order workflows, and real-time messaging.",
-      fr: "Développement d'un marketplace agritech multi-rôles en projet scolaire, mettant en relation paysans et collecteurs via des annonces de produits, une carte interactive, des workflows de commandes et une messagerie temps réel.",
+      en: "Multi-role agritech web platform developed as an academic project at ENI, connecting farmers, collectors, and administrators through product management, interactive map search, order workflows, and real-time messaging.",
+      fr: "Plateforme web agritech multi-rôles réalisée dans le cadre d'un projet académique à l'ENI, mettant en relation producteurs, collecteurs et administrateurs via la gestion de produits, la recherche cartographique, les workflows de commandes et la messagerie temps réel.",
     },
-    tags: ["React", "NestJS", "PostgreSQL", "TypeScript", "Socket.IO", "Leaflet", "Projet ENI"],
+    tags: {
+      en: [
+        "React",
+        "NestJS",
+        "PostgreSQL",
+        "TypeScript",
+        "Socket.IO",
+        "Leaflet",
+        "ENI Project",
+      ],
+      fr: [
+        "React",
+        "NestJS",
+        "PostgreSQL",
+        "TypeScript",
+        "Socket.IO",
+        "Leaflet",
+        "Projet ENI",
+      ],
+    },
     type: "project",
   },
 
@@ -330,47 +510,88 @@ export const EXPERIENCE: ExperienceItem[] = [
   {
     id: "master2",
     role: {
-      en: "Master's Student — Software Engineering",
-      fr: "Étudiant Master 2 — Génie Logiciel",
+      en: "Master's Degree in Software Engineering and Databases",
+      fr: "Master 2 en Génie Logiciel et Bases de Données",
     },
-    company: "École Nationale d'Informatique (ENI)",
+    company: {
+      en: "National School of Informatics (ENI Fianarantsoa)",
+      fr: "École Nationale d'Informatique (ENI Fianarantsoa)",
+    },
     period: { en: "2024 – Present", fr: "2024 – Présent" },
     description: {
-      en: "Currently pursuing a specialized Master's degree in Computer Science at ENI, focused on advanced software architecture, design patterns, and engineering best practices.",
-      fr: "Master spécialisé en Informatique à l'ENI, axé sur l'architecture logicielle avancée, les patrons de conception et les bonnes pratiques du génie logiciel.",
+      en: "Currently completing a Master 2 program in Software Engineering and Databases at ENI Fianarantsoa, focusing on software architecture, database design, and engineering best practices.",
+      fr: "Formation de Master 2 en cours à l'ENI Fianarantsoa en Génie Logiciel et Bases de Données, axée sur l'architecture logicielle, la conception de bases de données et les bonnes pratiques d'ingénierie.",
     },
-    tags: ["Master M2", "Génie Logiciel", "ENI", "Software Architecture"],
+    tags: {
+      en: [
+        "Master 2",
+        "Software Engineering",
+        "Databases",
+        "ENI Fianarantsoa",
+      ],
+      fr: [
+        "Master 2",
+        "Génie Logiciel",
+        "Bases de Données",
+        "ENI Fianarantsoa",
+      ],
+    },
     type: "education",
   },
 
   {
     id: "licence",
     role: {
-      en: "Bachelor's Graduate — Software Engineering",
-      fr: "Diplômé Licence Professionnelle — Génie Logiciel",
+      en: "Professional Bachelor's Degree in Software Engineering",
+      fr: "Licence Professionnelle en Génie Logiciel",
     },
-    company: "École Nationale d'Informatique (ENI)",
+    company: {
+      en: "National School of Informatics (ENI Fianarantsoa)",
+      fr: "École Nationale d'Informatique (ENI Fianarantsoa)",
+    },
     period: { en: "2021 – 2024", fr: "2021 – 2024" },
     description: {
-      en: "Completed a professional Bachelor's degree in Computer Science at ENI, specializing in software engineering and databases. Graduated with an internship project at TAKALOU.",
-      fr: "Licence Professionnelle en Informatique obtenue à l'ENI, spécialisation Génie Logiciel et Base de Données. Diplômé avec un projet de stage chez TAKALOU.",
+      en: "Completed a Professional Bachelor's degree in Computer Science at ENI Fianarantsoa, specializing in Software Engineering and Databases, concluded with a final-year internship at TAKALOU Sarl.",
+      fr: "Licence Professionnelle en Informatique obtenue à l'ENI Fianarantsoa, spécialisation Génie Logiciel et Bases de Données, conclue par un stage de fin de cycle chez TAKALOU Sarl.",
     },
-    tags: ["Licence Professionnelle", "Génie Logiciel", "ENI", "Bases de Données"],
+    tags: {
+      en: [
+        "Bachelor's Degree",
+        "Software Engineering",
+        "Databases",
+        "ENI Fianarantsoa",
+      ],
+      fr: [
+        "Licence Professionnelle",
+        "Génie Logiciel",
+        "Bases de Données",
+        "ENI Fianarantsoa",
+      ],
+    },
     type: "education",
   },
+
   {
     id: "bac",
     role: {
-      en: "High School Graduate — Baccalauréat série C",
+      en: "Scientific Baccalauréat (Série C)",
       fr: "Baccalauréat série C",
     },
     company: "SJC Ambalavao",
     period: { en: "2020 – 2021", fr: "2020 – 2021" },
     description: {
-      en: "Graduated with a scientific Baccalauréat (série C — Mathematics & Physics) before joining ENI.",
-      fr: "Obtention du Baccalauréat scientifique série C (Mathématiques & Physique) avant l'intégration de l'ENI.",
+      en: "Obtained the scientific Baccalauréat (série C — Mathematics and Physics) before enrolling at ENI Fianarantsoa.",
+      fr: "Obtention du Baccalauréat scientifique série C (Mathématiques et Physique) avant d'intégrer l'ENI Fianarantsoa.",
     },
-    tags: ["Baccalauréat", "Série C", "Sciences", "SJC Ambalavao"],
+    tags: {
+      en: ["Baccalauréat", "Série C", "Mathematics & Physics", "SJC Ambalavao"],
+      fr: [
+        "Baccalauréat",
+        "Série C",
+        "Mathématiques & Physique",
+        "SJC Ambalavao",
+      ],
+    },
     type: "education",
   },
 ];
@@ -386,5 +607,14 @@ export const PROFILE = {
   linkedin: "https://linkedin.com/in/mahensraz",
   location: "Madagascar",
   available: true,
+  resume: {
+    en: {
+      href: "/cv/Mahens-Raz-CV-EN.pdf",
+      filename: "Mahens-Raz-CV-EN.pdf",
+    },
+    fr: {
+      href: "/cv/Mahens-Raz-CV-FR.pdf",
+      filename: "Mahens-Raz-CV-FR.pdf",
+    },
+  },
 };
-
