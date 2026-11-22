@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import { PROFILE } from "@/lib/data";
 import { motion } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Sparkles } from "lucide-react";
+import { ArrowDown, Eye, Github, Linkedin, Sparkles } from "lucide-react";
 
 const WORD_DELAY = 0.08;
 
@@ -29,6 +29,7 @@ function AnimatedWord({ word, index }: { word: string; index: number }) {
 export default function Hero() {
   const { t, lang } = useLang();
   const taglineWords = t.hero.tagline.split(" ");
+  const resume = PROFILE.resume[lang];
 
   const scrollToAbout = () =>
     document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -136,13 +137,13 @@ export default function Hero() {
             <span className="ml-4 text-text-muted">
               stack:{" "}
               <span className="text-success">
-                ["React", "Next.js", "Laravel", "Node.js"]
+                ["React", "Next.js", "Flutter", "Laravel", "Node.js"]
               </span>
               ,
             </span>
             <br />
             <span className="ml-4 text-text-muted">
-              passion:{" "}
+              focus:{" "}
               <span className="text-accent-cyan">{t.hero.codePassion}</span>
             </span>
             <br />
@@ -181,16 +182,34 @@ export default function Hero() {
             </a>
           </Button>
 
+          {/* <Button
+            asChild
+            variant="secondary"
+            className="h-11 rounded-xl border border-border-light bg-surface-2 px-5 text-sm text-text-primary transition-colors hover:border-border hover:bg-surface-2/80 hover:text-text-primary"
+          >
+            <a href={resume.href} download={resume.filename}>
+              <Download size={15} aria-hidden="true" />
+              <span>{t.hero.cta_resume}</span>
+            </a>
+          </Button> */}
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-xl border-border-light bg-surface px-5 text-sm text-text-primary transition-colors hover:border-border hover:bg-surface-2 hover:text-text-primary"
+          >
+            <a href={resume.href} target="_blank" rel="noopener noreferrer">
+              <Eye size={15} aria-hidden="true" />
+              <span>{t.hero.cta_resume_view}</span>
+            </a>
+          </Button>
+
           <Button
             asChild
             variant="outline"
             className="h-11 rounded-xl border-border-light bg-surface px-5 text-sm text-text-primary transition-all hover:border-border hover:bg-surface-2 hover:text-text-primary"
           >
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={PROFILE.github} target="_blank" rel="noopener noreferrer">
               <Github size={15} /> {t.hero.cta_github}
             </a>
           </Button>
