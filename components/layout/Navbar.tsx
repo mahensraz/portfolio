@@ -4,13 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useLang, type Lang } from "@/context/LanguageContext";
 import { NAV_HREF, PROFILE } from "@/lib/data";
-import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { Globe, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { lang, setLang, t } = useLang();
+  const prefersReducedMotion = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +50,10 @@ export default function Navbar() {
     document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const getLangFlag = (value: Lang) => (value === "en" ? "🇨🇦" : "🇫🇷");
+  const langOptions: { value: Lang; code: string; label: string }[] = [
+    { value: "en", code: "EN", label: "English" },
+    { value: "fr", code: "FR", label: "Français" },
+  ];
 
   return (
     <>
@@ -88,7 +92,7 @@ export default function Navbar() {
               {!imageError ? (
                 <Image
                   src={PROFILE.image}
-                  alt="Mahen's Raz"
+                  alt={PROFILE.name}
                   fill
                   className="object-cover"
                   onError={() => setImageError(true)}
@@ -143,26 +147,47 @@ export default function Navbar() {
 
             {/* Language toggle */}
             <div
-              className="flex items-center overflow-hidden rounded-lg border border-border-light bg-surface p-0.5 text-xs font-medium"
-              aria-label="Language switcher"
+              role="group"
+              aria-label={
+                lang === "fr" ? "Sélecteur de langue" : "Language switcher"
+              }
+              className="inline-flex h-9 items-center gap-0.5 rounded-lg border border-border bg-surface/80 p-1"
             >
-              {(["en", "fr"] as Lang[]).map((value) => {
-                const isActive = lang === value;
+              <Globe
+                size={13}
+                aria-hidden="true"
+                className="ml-1.5 mr-1 shrink-0 text-text-muted"
+              />
+              {langOptions.map((option) => {
+                const isActive = lang === option.value;
 
                 return (
-                  <motion.button
-                    key={value}
-                    onClick={() => setLang(value)}
-                    className={`flex min-w-10 items-center justify-center rounded-md px-2.5 py-1.5 transition-all ${isActive ? "bg-accent-blue/10 text-accent-blue" : "text-text-secondary hover:text-text-primary"}`}
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
-                    title={`Switch to ${value.toUpperCase()}`}
-                    aria-label={`Switch language to ${value.toUpperCase()}`}
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setLang(option.value)}
+                    aria-pressed={isActive}
+                    title={option.label}
+                    aria-label={option.label}
+                    className={`relative flex h-7 items-center justify-center rounded-md px-2.5 font-mono-custom text-[11px] font-medium tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      isActive
+                        ? "text-text-primary"
+                        : "text-text-muted hover:text-text-secondary"
+                    }`}
                   >
-                    <span className="text-sm leading-none">
-                      {getLangFlag(value)}
-                    </span>
-                  </motion.button>
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-lang-active"
+                        className="absolute inset-0 rounded-md border border-border-light/80 bg-surface-2"
+                        transition={
+                          prefersReducedMotion
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 420, damping: 32 }
+                        }
+                      />
+                    )}
+                    <span className="relative z-10">{option.code}</span>
+                  </button>
                 );
               })}
             </div>
@@ -220,22 +245,37 @@ export default function Navbar() {
               ))}
 
               {/* Mobile lang toggle */}
-              <div className="mt-2 flex gap-2">
-                {(["en", "fr"] as Lang[]).map((l) => (
-                  <Button
-                    key={l}
-                    type="button"
-                    variant="outline"
-                    onClick={() => setLang(l)}
-                    className={`h-auto flex-1 rounded-xl py-2.5 font-mono-custom text-sm uppercase tracking-widest transition-all ${lang === l ? "border-accent-blue/40 bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/15 hover:text-accent-blue" : "border-border bg-surface text-text-muted hover:bg-surface-2 hover:text-text-primary"}`}
-                    aria-label={`Switch language to ${l.toUpperCase()}`}
-                  >
-                    <span className="text-sm leading-none">
-                      {getLangFlag(l)}
-                    </span>
-                    <span>{l.toUpperCase()}</span>
-                  </Button>
-                ))}
+              <div
+                role="group"
+                aria-label={
+                  lang === "fr" ? "Sélecteur de langue" : "Language switcher"
+                }
+                className="mt-2 grid grid-cols-2 gap-1 rounded-xl border border-border bg-surface p-1"
+              >
+                {langOptions.map((option) => {
+                  const isActive = lang === option.value;
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setLang(option.value)}
+                      aria-pressed={isActive}
+                      aria-label={option.label}
+                      className={`flex items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                        isActive
+                          ? "border border-border-light/80 bg-surface-2 text-text-primary"
+                          : "border border-transparent text-text-muted hover:text-text-primary"
+                      }`}
+                    >
+                      <span className="font-mono-custom text-xs tracking-wider">
+                        {option.code}
+                      </span>
+                      <span className="text-xs text-text-secondary">
+                        {option.label}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
 
               <div className="mt-4 border-t border-border pt-5">

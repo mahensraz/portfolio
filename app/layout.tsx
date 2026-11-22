@@ -4,37 +4,45 @@ import Providers from "@/components/providers/Providers";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
-  title: "Mahen's Raz — Full Stack Developer",
+  title: "Mahens Raz — Full Stack & Mobile Developer",
   description:
-    "Software engineering student and full stack developer building scalable, intuitive digital solutions with Next.js, React, Laravel, Node.js and modern web technologies.",
+    "Mahens Raz, Full Stack & Mobile Developer completing a Master's Degree in Software Engineering and Databases at ENI Fianarantsoa. Building web and mobile applications with React, Next.js, Flutter, Laravel, Node.js, PostgreSQL, and Prisma.",
   keywords: [
+    "Mahens Raz",
+    "Full Stack & Mobile Developer",
     "Full Stack Developer",
-    "Software Engineer",
+    "Mobile Developer",
+    "Software Engineering",
     "Next.js",
     "React",
+    "Flutter",
     "Laravel",
+    "PHP",
     "Node.js",
     "Express.js",
-    "PHP",
+    "NestJS",
     "TypeScript",
-    "Web Developer",
+    "PostgreSQL",
+    "Prisma",
+    "Docker",
+    "ENI Fianarantsoa",
     "Madagascar",
   ],
-  authors: [{ name: "Mahen's Raz" }],
-  creator: "Mahen's Raz",
+  authors: [{ name: "Mahens Raz" }],
+  creator: "Mahens Raz",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Mahen's Raz — Full Stack Developer",
+    title: "Mahens Raz — Full Stack & Mobile Developer",
     description:
-      "Building scalable and intuitive digital solutions with modern web technologies.",
-    siteName: "Mahen's Raz Portfolio",
+      "Full Stack & Mobile Developer building web platforms, backend APIs, and Flutter mobile applications.",
+    siteName: "Mahens Raz Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mahen's Raz — Full Stack Developer",
+    title: "Mahens Raz — Full Stack & Mobile Developer",
     description:
-      "Building scalable and intuitive digital solutions with modern web technologies.",
+      "Full Stack & Mobile Developer building web platforms, backend APIs, and Flutter mobile applications.",
   },
   robots: {
     index: true,

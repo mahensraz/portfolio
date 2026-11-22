@@ -52,7 +52,7 @@ export default function Footer() {
 
         <div className="mt-8 border-t border-border pt-6 text-center">
           <p className="font-mono-custom text-xs text-text-muted">
-            © {new Date().getFullYear()} Mahens_Rz. {t.footer.copyright}
+            © {new Date().getFullYear()} {PROFILE.name}. {t.footer.copyright}
           </p>
         </div>
       </div>
