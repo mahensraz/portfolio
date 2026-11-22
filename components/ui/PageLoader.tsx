@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export default function PageLoader() {
   const [isLoading, setIsLoading] = useState(true);
-  // const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 1800);
@@ -30,7 +29,7 @@ export default function PageLoader() {
               className="absolute inset-0 opacity-30"
               style={{
                 background:
-                  "radial-gradient(ellipse at 50% 50%, rgba(79,142,247,0.15) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at 50% 50%, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
               }}
             />
           </div>
@@ -47,8 +46,8 @@ export default function PageLoader() {
                 className="flex h-16 w-16 items-center justify-center rounded-2xl text-2xl font-bold font-display"
                 style={{
                   background:
-                    "linear-gradient(135deg, rgba(79,142,247,0.2) 0%, rgba(155,92,246,0.2) 100%)",
-                  border: "1px solid rgba(79,142,247,0.3)",
+                    "linear-gradient(135deg, hsl(var(--primary) / 0.2) 0%, hsl(var(--accent-purple) / 0.2) 100%)",
+                  border: "1px solid hsl(var(--primary) / 0.3)",
                 }}
               >
                 <span className="gradient-text">MR</span>
@@ -58,8 +57,8 @@ export default function PageLoader() {
               <div
                 className="loader-ring absolute -inset-2 rounded-[20px] border-2 border-transparent"
                 style={{
-                  borderTopColor: "rgba(79,142,247,0.6)",
-                  borderRightColor: "rgba(155,92,246,0.4)",
+                  borderTopColor: "hsl(var(--primary) / 0.6)",
+                  borderRightColor: "hsl(var(--accent-purple) / 0.4)",
                 }}
               />
             </motion.div>
@@ -75,7 +74,7 @@ export default function PageLoader() {
                 className="h-full rounded-full"
                 style={{
                   background:
-                    "linear-gradient(90deg, #4f8ef7, #9b5cf6, #22d3ee)",
+                    "linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent-purple)), hsl(var(--accent-cyan)))",
                 }}
                 initial={{ x: "-100%" }}
                 animate={{ x: "0%" }}

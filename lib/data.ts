@@ -20,12 +20,10 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiJenkins,
-  // SiKubernetes
 } from "react-icons/si";
 
 import { FaNetworkWired, FaServer } from "react-icons/fa";
 import { MdApi } from "react-icons/md";
-// import { MdOutlineSyncAlt } from "react-icons/md";
 
 
 export const NAV_HREF = {
@@ -71,8 +69,6 @@ export const TECH_STACK = {
     { name: "Postman", icon: SiPostman, color: "#FF6C37" },
     { name: "Docker", icon: SiDocker, color: "#2496ED" },
     { name: "Jenkins", icon: SiJenkins, color: "#D24939" },
-    // { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
-    // { name: "CI/CD", icon: MdOutlineSyncAlt, color: "#4F8EF7" }
   ] satisfies TechStackItem[],
   secondary: [
     { name: "Linux", icon: SiLinux, color: "#FCC624" },
@@ -125,7 +121,6 @@ export const PROJECTS: Project[] = [
 
     ],
     featured: true,
-    gradient: "from-blue-600/20 via-cyan-500/10 to-transparent",
     icon: "📡",
   },
 
@@ -174,7 +169,6 @@ export const PROJECTS: Project[] = [
       "/screenshots/impot_app/mobile/Screenshot_20251210-154029.png"
     ],
     featured: true,
-    gradient: "from-amber-600/20 via-orange-500/10 to-transparent",
     icon: "🏛️"
   },
 
@@ -216,7 +210,6 @@ export const PROJECTS: Project[] = [
       "/screenshots/doleance_app/visualisation_cartographique_doleance.png",
     ],
     featured: true,
-    gradient: "from-purple-600/20 via-pink-500/10 to-transparent",
     icon: "📋",
   },
 
@@ -257,7 +250,6 @@ export const PROJECTS: Project[] = [
       "/screenshots/agriconnect_app/discussion.png",
     ],
     "featured": true,
-    "gradient": "from-emerald-600/20 via-lime-500/10 to-transparent",
     "icon": "🌾"
   },
 

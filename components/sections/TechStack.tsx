@@ -4,6 +4,7 @@ import ScrollReveal, {
   StaggerContainer,
   StaggerItem,
 } from "@/components/animations/ScrollReveal";
+import { Badge } from "@/components/ui/badge";
 import { useLang } from "@/context/LanguageContext";
 import { TECH_STACK } from "@/lib/data";
 import { motion } from "framer-motion";
@@ -21,32 +22,7 @@ export default function TechStack() {
     { key: "secondary" as Filter, label: t.stack.filterSecondary },
   ];
 
-  const showPrimary   = filter === "all" || filter === "primary";
-  // const showSecondary = filter === "all" || filter === "secondary";
-
-  // const domainData = [
-  //   {
-  //     key:   "frontend",
-  //     label: t.stack.domains.frontend,
-  //     items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Flutter"],
-  //     color: "#4F8EF7",
-  //     pct:   85,
-  //   },
-  //   {
-  //     key:   "backend",
-  //     label: t.stack.domains.backend,
-  //     items: ["Laravel", "NestJS", "Node.js", "MySQL", "PostgreSQL"],
-  //     color: "#9B5CF6",
-  //     pct:   82,
-  //   },
-  //   {
-  //     key:   "devops",
-  //     label: t.stack.domains.devops,
-  //     items: ["Docker", "Git", "GitHub", "Linux", "Jenkins"],
-  //     color: "#22D3EE",
-  //     pct:   60,
-  //   },
-  // ];
+  const showPrimary = filter === "all" || filter === "primary";
 
   return (
     <section id="stack" className="section-padding">
@@ -80,8 +56,7 @@ export default function TechStack() {
                 {filter === f.key && (
                   <motion.span
                     layoutId="stack-filter"
-                    className="absolute inset-0 rounded-lg bg-surface-2"
-                    style={{ border: "1px solid rgba(79,142,247,0.25)" }}
+                    className="absolute inset-0 rounded-lg border border-primary/25 bg-surface-2"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -115,25 +90,19 @@ export default function TechStack() {
             >
               {TECH_STACK.primary.map((tech) => (
                 <StaggerItem key={tech.name}>
-                  <motion.div
-                    className="card-shine group flex items-center gap-2.5 rounded-xl border border-border bg-surface px-4 py-3 transition-all duration-200 hover:border-border-light hover:-translate-y-0.5 hover:shadow-card"
-                    whileHover={{ scale: 1.03 }}
+                  <Badge
+                    variant="outline"
+                    className="gap-2.5 whitespace-nowrap rounded-xl bg-surface px-3.5 py-2.5 font-display text-sm text-foreground transition-colors duration-200 hover:border-border-light hover:bg-secondary/40"
                   >
-                    {/* ✅ react-icons : size uniquement, pas de strokeWidth */}
                     <span
-                      className="flex h-7 w-7 items-center justify-center rounded-lg"
-                      style={{
-                        color:           tech.color,
-                        backgroundColor: "rgba(255,255,255,0.03)",
-                      }}
+                      className="flex h-7 w-7 items-center justify-center rounded-lg bg-foreground/[0.03]"
+                      style={{ color: tech.color }}
                     >
                       <tech.icon size={16} aria-hidden="true" />
                     </span>
 
-                    <span className="font-display text-sm font-medium text-text-primary">
-                      {tech.name}
-                    </span>
-                  </motion.div>
+                    <span>{tech.name}</span>
+                  </Badge>
                 </StaggerItem>
               ))}
             </StaggerContainer>

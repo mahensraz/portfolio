@@ -16,18 +16,9 @@ export default function Home() {
       <main className="relative overflow-hidden">
         {/* Global ambient light orbs */}
         <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-          <div
-            className="orb absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full"
-            style={{ background: "rgba(79, 142, 247, 0.06)" }}
-          />
-          <div
-            className="orb-2 absolute top-1/3 -right-60 h-[500px] w-[500px] rounded-full"
-            style={{ background: "rgba(155, 92, 246, 0.05)" }}
-          />
-          <div
-            className="orb absolute bottom-1/4 left-1/4 h-[400px] w-[400px] rounded-full"
-            style={{ background: "rgba(34, 211, 238, 0.04)" }}
-          />
+          <div className="orb absolute -top-40 -left-40 h-[600px] w-[600px] rounded-full bg-primary/[0.06]" />
+          <div className="orb-2 absolute top-1/3 -right-60 h-[500px] w-[500px] rounded-full bg-accent-purple/[0.05]" />
+          <div className="orb absolute bottom-1/4 left-1/4 h-[400px] w-[400px] rounded-full bg-accent-cyan/[0.04]" />
         </div>
 
         <div className="relative z-10">

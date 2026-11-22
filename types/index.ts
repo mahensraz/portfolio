@@ -9,7 +9,6 @@ export interface Project {
   link?: string;        // live demo link
   images: string[];     // array of screenshot URLs (replace with real paths)
   featured: boolean;
-  gradient: string;
   icon: string;
 }
 
@@ -21,9 +20,4 @@ export interface ExperienceItem {
   description: { en: string; fr: string };
   tags: string[];
   type: "work" | "education" | "project";
-}
-
-export interface NavLink {
-  label: string;
-  href: string;
 }

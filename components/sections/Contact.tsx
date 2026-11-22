@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Github, Linkedin, Send, CheckCircle2, MapPin, Clock } from "lucide-react";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
+import { Button } from "@/components/ui/button";
 import { PROFILE } from "@/lib/data";
 import { useLang } from "@/context/LanguageContext";
 
@@ -42,7 +43,7 @@ export default function Contact() {
   const contacts = [
     { icon: <Mail size={18} />,     label: "Email",    value: PROFILE.email,                  href: `mailto:${PROFILE.email}`, color: "text-accent-blue",  bg: "bg-accent-blue/10",  border: "border-accent-blue/20" },
     { icon: <Github size={18} />,   label: "GitHub",   value: "github.com/mahensraz",          href: PROFILE.github,            color: "text-text-primary", bg: "bg-surface-2",        border: "border-border-light",  external: true },
-    { icon: <Linkedin size={18} />, label: "LinkedIn", value: "linkedin.com/in/mahensraz",     href: PROFILE.linkedin,          color: "text-blue-400",     bg: "bg-blue-500/10",     border: "border-blue-500/20",   external: true },
+    { icon: <Linkedin size={18} />, label: "LinkedIn", value: "linkedin.com/in/mahensraz",     href: PROFILE.linkedin,          color: "text-primary",      bg: "bg-primary/10",      border: "border-primary/20",    external: true },
   ];
 
   return (
@@ -63,14 +64,20 @@ export default function Contact() {
             <AnimatePresence mode="wait">
               {state === "success" ? (
                 <motion.div key="success"
-                  className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-10 text-center"
+                  className="flex h-full min-h-[360px] flex-col items-center justify-center gap-4 rounded-2xl border border-success/20 bg-success/5 p-10 text-center"
                   initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
-                  <CheckCircle2 size={48} className="text-emerald-400" />
+                  <CheckCircle2 size={48} className="text-success" />
                   <h3 className="font-display text-xl font-bold text-text-primary">{t.contact.success.title}</h3>
                   <p className="text-sm text-text-secondary">{t.contact.success.desc}</p>
-                  <button onClick={() => setState("idle")} className="mt-2 text-xs text-emerald-400 underline underline-offset-4">
+                  <Button
+                    type="button"
+                    variant="link"
+                    size="sm"
+                    onClick={() => setState("idle")}
+                    className="mt-2 h-auto p-0 text-xs text-success underline underline-offset-4 hover:text-success/90"
+                  >
                     {t.contact.success.again}
-                  </button>
+                  </Button>
                 </motion.div>
               ) : (
                 <motion.form key="form" onSubmit={handleSubmit} className="flex flex-col gap-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -79,40 +86,47 @@ export default function Contact() {
                       <label className="font-mono-custom text-xs text-text-muted">{t.contact.form.name}</label>
                       <input type="text" required placeholder={t.contact.form.namePlaceholder} value={form.name}
                         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                        className="rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-all focus:border-accent-blue/50 focus:ring-2 focus:ring-accent-blue/15 hover:border-border-light" />
+                        className="rounded-xl border border-input bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-muted-foreground outline-none transition-all focus:border-ring focus:ring-2 focus:ring-ring/20 hover:border-ring/70" />
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label className="font-mono-custom text-xs text-text-muted">{t.contact.form.email}</label>
                       <input type="email" required placeholder={t.contact.form.emailPlaceholder} value={form.email}
                         onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                        className="rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-all focus:border-accent-blue/50 focus:ring-2 focus:ring-accent-blue/15 hover:border-border-light" />
+                        className="rounded-xl border border-input bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-muted-foreground outline-none transition-all focus:border-ring focus:ring-2 focus:ring-ring/20 hover:border-ring/70" />
                     </div>
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="font-mono-custom text-xs text-text-muted">{t.contact.form.message}</label>
                     <textarea required rows={6} placeholder={t.contact.form.messagePlaceholder} value={form.message}
                       onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                      className="resize-none rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-all focus:border-accent-blue/50 focus:ring-2 focus:ring-accent-blue/15 hover:border-border-light" />
+                      className="resize-none rounded-xl border border-input bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-muted-foreground outline-none transition-all focus:border-ring focus:ring-2 focus:ring-ring/20 hover:border-ring/70" />
                   </div>
                   {state === "error" && (
-                    <p className="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-300">
+                    <p className="rounded-xl border border-destructive bg-destructive px-3 py-2 text-xs text-destructive-foreground">
                       {t.contact.error.desc}
                     </p>
                   )}
-                  <motion.button type="submit" disabled={state === "sending"}
-                    className="flex h-12 items-center justify-center gap-2 rounded-xl font-medium text-white disabled:opacity-70"
-                    style={{ background: "linear-gradient(135deg,#4f8ef7 0%,#9b5cf6 100%)" }}
-                    whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}>
-                    {state === "sending" ? (
-                      <>
-                        <motion.div className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white"
-                          animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }} />
-                        {t.contact.form.sending}
-                      </>
-                    ) : (
-                      <>{t.contact.form.submit} <Send size={15} /></>
-                    )}
-                  </motion.button>
+                  <motion.div
+                    whileHover={state === "sending" ? undefined : { scale: 1.01 }}
+                    whileTap={state === "sending" ? undefined : { scale: 0.99 }}
+                  >
+                    <Button
+                      type="submit"
+                      variant="gradient"
+                      disabled={state === "sending"}
+                      className="h-12 w-full rounded-xl text-base disabled:opacity-70"
+                    >
+                      {state === "sending" ? (
+                        <>
+                          <motion.div className="h-4 w-4 rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground"
+                            animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }} />
+                          {t.contact.form.sending}
+                        </>
+                      ) : (
+                        <>{t.contact.form.submit} <Send size={15} /></>
+                      )}
+                    </Button>
+                  </motion.div>
                 </motion.form>
               )}
             </AnimatePresence>
@@ -123,10 +137,10 @@ export default function Contact() {
             <div className="flex flex-col gap-5">
               {/* Availability */}
               <div className="relative overflow-hidden rounded-2xl border border-border p-6"
-                style={{ background: "linear-gradient(135deg,rgba(79,142,247,0.08) 0%,rgba(155,92,246,0.06) 100%)" }}>
+                style={{ background: "linear-gradient(135deg,hsl(var(--primary) / 0.08) 0%,hsl(var(--accent-purple) / 0.06) 100%)" }}>
                 <div className="mb-4 flex items-center gap-2">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                  <span className="font-mono-custom text-xs text-emerald-400">{t.contact.availability.status}</span>
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-success" />
+                  <span className="font-mono-custom text-xs text-success">{t.contact.availability.status}</span>
                 </div>
                 <h3 className="font-display text-lg font-bold text-text-primary">{t.contact.availability.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-text-secondary">{t.contact.availability.desc}</p>
@@ -143,8 +157,7 @@ export default function Contact() {
                   <StaggerItem key={contact.label}>
                     <a href={contact.href} target={contact.external ? "_blank" : undefined} rel={contact.external ? "noopener noreferrer" : undefined}
                       className={`card-shine flex items-center gap-4 rounded-xl border ${contact.border} ${contact.bg} p-4 transition-all hover:-translate-y-0.5 hover:shadow-card`}>
-                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${contact.color}`}
-                        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-foreground/[0.06] bg-foreground/[0.04] ${contact.color}`}>
                         {contact.icon}
                       </div>
                       <div>

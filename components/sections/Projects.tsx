@@ -4,6 +4,8 @@ import ScrollReveal, {
   StaggerContainer,
   StaggerItem,
 } from "@/components/animations/ScrollReveal";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import { PROFILE, PROJECTS } from "@/lib/data";
 import type { Project } from "@/types";
@@ -20,6 +22,20 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+
+const PROJECT_GRADIENTS: Record<string, string> = {
+  netpass: "from-blue-600/20 via-cyan-500/10 to-transparent",
+  "impot-local": "from-amber-600/20 via-orange-500/10 to-transparent",
+  "complaint-system": "from-purple-600/20 via-pink-500/10 to-transparent",
+  "agri-connect": "from-emerald-600/20 via-lime-500/10 to-transparent",
+};
+
+const DEFAULT_PROJECT_GRADIENT =
+  "from-accent-blue/20 via-accent-purple/10 to-transparent";
+
+function getProjectGradient(projectId: string): string {
+  return PROJECT_GRADIENTS[projectId] ?? DEFAULT_PROJECT_GRADIENT;
+}
 
 /* ─── Image carousel used inside the modal ─────────────────────────────────── */
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
@@ -48,7 +64,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   return (
     <div className="relative overflow-hidden rounded-xl border border-border bg-surface">
       {/* Image or placeholder */}
-      <div className="relative h-64 w-full overflow-hidden bg-black/20 sm:h-[28rem]">
+      <div className="relative h-64 w-full overflow-hidden bg-background/40 sm:h-[28rem]">
         <AnimatePresence mode="wait">
           {!imgError[idx] ? (
             <motion.div
@@ -87,18 +103,24 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
         {/* Nav arrows — only if multiple images */}
         {images.length > 1 && (
           <>
-            <button
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
               onClick={prev}
-              className="absolute left-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/50 text-white/80 backdrop-blur-sm transition-all hover:bg-black/70 hover:text-white"
+              className="absolute left-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-lg bg-background/70 text-foreground/80 backdrop-blur-sm transition-all hover:bg-background/90 hover:text-foreground"
             >
               <ChevronLeft size={14} />
-            </button>
-            <button
+            </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
               onClick={next}
-              className="absolute right-2 top-1/2 -translate-y-1/2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/50 text-white/80 backdrop-blur-sm transition-all hover:bg-black/70 hover:text-white"
+              className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-lg bg-background/70 text-foreground/80 backdrop-blur-sm transition-all hover:bg-background/90 hover:text-foreground"
             >
               <ChevronRight size={14} />
-            </button>
+            </Button>
           </>
         )}
       </div>
@@ -133,30 +155,29 @@ function CardThumbnail({ project }: { project: Project }) {
     // Fallback: gradient header with icon
     return (
       <div
-        className={`relative flex h-40 w-full items-center justify-center bg-gradient-to-br ${project.gradient}`}
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+        className={`relative flex h-40 w-full items-center justify-center border-b border-border bg-gradient-to-br ${getProjectGradient(project.id)}`}
       >
         <div
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px)",
+              "linear-gradient(hsl(var(--foreground) / 0.08) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground) / 0.08) 1px,transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
         <span className="relative text-5xl">{project.icon}</span>
-        <div className="absolute top-3 right-3 rounded-md border border-white/10 bg-black/30 px-2 py-0.5 font-mono-custom text-[10px] text-white/60 backdrop-blur-sm">
+        <Badge
+          variant="outline"
+          className="absolute top-3 right-3 bg-background/85 px-2 py-0.5 font-mono-custom text-[10px] text-foreground/90"
+        >
           {project.category}
-        </div>
+        </Badge>
       </div>
     );
   }
 
   return (
-    <div
-      className="relative h-40 w-full overflow-hidden"
-      style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
-    >
+    <div className="relative h-40 w-full overflow-hidden border-b border-border">
       <Image
         src={firstImg}
         alt={`${project.title} preview`}
@@ -166,17 +187,21 @@ function CardThumbnail({ project }: { project: Project }) {
         onError={() => setImgError(true)}
       />
       {/* Overlay with category */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      <div className="absolute top-3 right-3 rounded-md border border-white/10 bg-black/40 px-2 py-0.5 font-mono-custom text-[10px] text-white/70 backdrop-blur-sm">
+      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+      <Badge
+        variant="outline"
+        className="absolute top-3 right-3 bg-background/80 px-2 py-0.5 font-mono-custom text-[10px] text-foreground/90 backdrop-blur-sm"
+      >
         {project.category}
-      </div>
+      </Badge>
       {/* Image count badge */}
       {project.images.length > 1 && (
-        <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/50 px-1.5 py-0.5 backdrop-blur-sm">
-          <span className="font-mono-custom text-[10px] text-white/70">
-            {project.images.length} 📸
-          </span>
-        </div>
+        <Badge
+          variant="outline"
+          className="absolute bottom-2 right-2 gap-1 whitespace-nowrap bg-background/80 px-1.5 py-0.5 font-mono-custom text-[10px] text-foreground/90 backdrop-blur-sm"
+        >
+          <span>{project.images.length} 📸</span>
+        </Badge>
       )}
     </div>
   );
@@ -195,8 +220,7 @@ function ProjectCard({
   return (
     <StaggerItem>
       <motion.article
-        className="card-shine group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-border-light hover:-translate-y-1"
-        whileHover={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+        className="card-shine group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:border-border-light hover:-translate-y-1 hover:shadow-card"
       >
         {/* Thumbnail or gradient header */}
         <CardThumbnail project={project} />
@@ -215,44 +239,68 @@ function ProjectCard({
           {/* Tags */}
           <div className="flex flex-wrap gap-1.5">
             {project.tags.slice(0, 4).map((tag) => (
-              <span key={tag} className="tag">
+              <Badge
+                key={tag}
+                variant="subtle"
+                className="whitespace-nowrap rounded px-2 py-0.5 font-mono-custom text-[11px] tracking-wide"
+              >
                 {tag}
-              </span>
+              </Badge>
             ))}
             {project.tags.length > 4 && (
-              <span className="tag">+{project.tags.length - 4}</span>
+              <Badge
+                variant="subtle"
+                className="whitespace-nowrap rounded px-2 py-0.5 font-mono-custom text-[11px] tracking-wide"
+              >
+                +{project.tags.length - 4}
+              </Badge>
             )}
           </div>
 
           {/* Actions */}
           <div className="mt-auto flex items-center gap-2 pt-2">
-            <button
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
               onClick={() => onExpand(project)}
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-border-light bg-surface-2 py-2 text-xs font-medium text-text-secondary transition-all hover:border-border hover:text-text-primary"
+              className="h-9 flex-1 gap-1.5 rounded-lg border border-border-light bg-surface-2 py-2 text-xs text-text-secondary transition-all hover:border-border hover:bg-surface-2 hover:text-text-primary"
             >
               {t.projects.viewDetails} <ArrowRight size={12} />
-            </button>
+            </Button>
             {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={t.projects.viewGithub}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-light text-text-muted transition-all hover:border-accent-blue/40 hover:bg-accent-blue/5 hover:text-accent-blue"
+              <Button
+                asChild
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 rounded-lg border-border-light bg-transparent text-text-muted transition-all hover:border-accent-blue/40 hover:bg-accent-blue/5 hover:text-accent-blue"
               >
-                <Github size={14} />
-              </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={t.projects.viewGithub}
+                >
+                  <Github size={14} />
+                </a>
+              </Button>
             )}
             {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={t.projects.viewLive}
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border-light text-text-muted transition-all hover:border-border hover:text-text-primary"
+              <Button
+                asChild
+                variant="outline"
+                size="icon"
+                className="h-9 w-9 rounded-lg border-border-light bg-transparent text-text-muted transition-all hover:border-border hover:bg-transparent hover:text-text-primary"
               >
-                <ExternalLink size={14} />
-              </a>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={t.projects.viewLive}
+                >
+                  <ExternalLink size={14} />
+                </a>
+              </Button>
             )}
           </div>
         </div>
@@ -280,7 +328,7 @@ function ProjectModal({
     >
       {/* Backdrop */}
       <motion.div
-        className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+        className="fixed inset-0 bg-background/80 backdrop-blur-sm"
         onClick={onClose}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -305,23 +353,22 @@ function ProjectModal({
 
         {/* Header */}
         <div
-          className={`relative flex h-28 items-center gap-4 bg-gradient-to-br ${project.gradient} px-6`}
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          className={`relative flex h-28 items-center gap-4 border-b border-border bg-gradient-to-br ${getProjectGradient(project.id)} px-6`}
         >
           <div
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px)",
+                "linear-gradient(hsl(var(--foreground) / 0.08) 1px,transparent 1px),linear-gradient(90deg,hsl(var(--foreground) / 0.08) 1px,transparent 1px)",
               backgroundSize: "24px 24px",
             }}
           />
           <span className="relative text-5xl">{project.icon}</span>
           <div className="relative">
-            <p className="font-mono-custom text-[11px] text-white/50">
+            <p className="font-mono-custom text-[11px] text-muted-foreground">
               {project.category}
             </p>
-            <h3 className="font-display text-2xl font-bold text-white">
+            <h3 className="font-display text-2xl font-bold text-foreground">
               {project.title}
             </h3>
           </div>
@@ -351,9 +398,13 @@ function ProjectModal({
             </p>
             <div className="flex flex-wrap gap-1.5">
               {project.tags.map((tag) => (
-                <span key={tag} className="tag">
+                <Badge
+                  key={tag}
+                  variant="subtle"
+                  className="whitespace-nowrap rounded px-2 py-0.5 font-mono-custom text-[11px] tracking-wide"
+                >
                   {tag}
-                </span>
+                </Badge>
               ))}
             </div>
           </div>
@@ -361,34 +412,41 @@ function ProjectModal({
           {/* Action links */}
           <div className="flex flex-col gap-3 border-t border-border pt-4 sm:flex-row">
             {project.github ? (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-border-light bg-surface-2 py-3 text-sm font-semibold text-text-primary transition-all hover:border-accent-blue/30 hover:bg-accent-blue/5"
+              <Button
+                asChild
+                variant="secondary"
+                className="h-auto flex-1 gap-2 rounded-xl border border-border-light bg-surface-2 py-3 text-sm font-semibold text-text-primary transition-all hover:border-accent-blue/30 hover:bg-accent-blue/5"
               >
-                <Github size={16} />
-                {t.projects.viewGithub}
-                <ExternalLink size={12} className="text-text-muted" />
-              </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Github size={16} />
+                  {t.projects.viewGithub}
+                  <ExternalLink size={12} className="text-text-muted" />
+                </a>
+              </Button>
             ) : (
               <div className="flex flex-1 items-center justify-center rounded-xl border border-border bg-surface-2 py-3 text-xs text-text-muted">
                 {t.projects.sourceOnRequest}
               </div>
             )}
             {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-1 items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold text-white"
-                style={{
-                  background: "linear-gradient(135deg,#4f8ef7,#9b5cf6)",
-                }}
+              <Button
+                asChild
+                variant="gradient"
+                className="h-auto flex-1 gap-2 rounded-xl py-3 text-sm font-semibold"
               >
-                <ExternalLink size={15} />
-                {t.projects.viewLive}
-              </a>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink size={15} />
+                  {t.projects.viewLive}
+                </a>
+              </Button>
             )}
           </div>
         </div>
@@ -436,16 +494,21 @@ export default function Projects() {
           </StaggerContainer>
 
           <ScrollReveal delay={0.3} className="mt-12 text-center">
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border border-border-light bg-surface px-6 py-3 text-sm font-medium text-text-secondary transition-all hover:border-border hover:text-text-primary"
+            <Button
+              asChild
+              variant="outline"
+              className="h-auto gap-2 rounded-xl border-border-light bg-surface px-6 py-3 text-sm font-medium text-text-secondary transition-all hover:border-border hover:bg-surface hover:text-text-primary"
             >
-              <Github size={15} />
-              {t.projects.seeMore}
-              <ArrowRight size={13} className="ml-1" />
-            </a>
+              <a
+                href={PROFILE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github size={15} />
+                {t.projects.seeMore}
+                <ArrowRight size={13} className="ml-1" />
+              </a>
+            </Button>
           </ScrollReveal>
         </div>
       </section>

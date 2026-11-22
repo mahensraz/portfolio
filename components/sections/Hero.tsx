@@ -1,5 +1,7 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useLang } from "@/context/LanguageContext";
 import { PROFILE } from "@/lib/data";
 import { motion } from "framer-motion";
@@ -53,7 +55,7 @@ export default function Hero() {
           className="h-[600px] w-[600px] rounded-full opacity-30"
           style={{
             background:
-              "radial-gradient(circle, rgba(79,142,247,0.1) 0%, transparent 70%)",
+              "radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)",
           }}
         />
       </div>
@@ -61,15 +63,18 @@ export default function Hero() {
       <div className="relative z-10 flex max-w-4xl flex-col items-center text-center">
         {/* Status pill */}
         <motion.div
-          className="mb-8 flex items-center gap-2 rounded-full border border-accent-blue/20 bg-accent-blue/5 px-4 py-1.5"
+          className="mb-8"
           initial={{ opacity: 0, y: 16, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 2.0, duration: 0.45 }}
         >
-          <Sparkles size={12} className="text-accent-blue" />
-          <span className="font-mono-custom text-[11px] tracking-widest text-accent-blue uppercase">
-            {t.hero.available}
-          </span>
+          <Badge
+            variant="subtle"
+            className="gap-2 rounded-full px-3.5 py-1 font-mono-custom text-[11px] uppercase tracking-widest"
+          >
+            <Sparkles size={12} className="shrink-0" />
+            <span>{t.hero.available}</span>
+          </Badge>
         </motion.div>
 
         {/* Name */}
@@ -114,23 +119,23 @@ export default function Hero() {
         >
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
+              <div className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+              <div className="h-2.5 w-2.5 rounded-full bg-accent-purple/60" />
+              <div className="h-2.5 w-2.5 rounded-full bg-success/60" />
             </div>
             <span className="font-mono-custom text-xs text-text-muted">
               portfolio.ts
             </span>
           </div>
           <div className="mt-2 font-mono-custom text-sm leading-relaxed">
-            <span className="text-purple-400">const</span>{" "}
+            <span className="text-accent-purple">const</span>{" "}
             <span className="text-accent-blue">developer</span>{" "}
             <span className="text-text-muted">=</span>{" "}
             <span className="text-accent-cyan">&#123;</span>
             <br />
             <span className="ml-4 text-text-muted">
               stack:{" "}
-              <span className="text-emerald-400">
+              <span className="text-success">
                 ["React", "Next.js", "Laravel", "Node.js"]
               </span>
               ,
@@ -138,7 +143,7 @@ export default function Hero() {
             <br />
             <span className="ml-4 text-text-muted">
               passion:{" "}
-              <span className="text-yellow-300/80">{t.hero.codePassion}</span>
+              <span className="text-accent-cyan">{t.hero.codePassion}</span>
             </span>
             <br />
             <span className="text-accent-cyan">&#125;</span>
@@ -153,44 +158,56 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 3.0, duration: 0.5 }}
         >
-          <a
-            href="#projects"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .getElementById("projects")
-                ?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="group relative inline-flex h-11 items-center gap-2 overflow-hidden rounded-xl px-6 font-medium text-white"
-            style={{
-              background: "linear-gradient(135deg, #4f8ef7 0%, #9b5cf6 100%)",
-            }}
+          <Button
+            asChild
+            variant="gradient"
+            className="group relative h-11 overflow-hidden rounded-xl px-6 text-base"
           >
-            <span className="shimmer absolute inset-0" />
-            <span className="relative">{t.hero.cta_projects}</span>
-            <ArrowDown
-              size={15}
-              className="relative transition-transform group-hover:translate-y-0.5"
-            />
-          </a>
+            <a
+              href="#projects"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              <span className="shimmer absolute inset-0" />
+              <span className="relative">{t.hero.cta_projects}</span>
+              <ArrowDown
+                size={15}
+                className="relative transition-transform group-hover:translate-y-0.5"
+              />
+            </a>
+          </Button>
 
-          <a
-            href={PROFILE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-11 items-center gap-2 rounded-xl border border-border-light bg-surface px-5 text-sm font-medium text-text-primary transition-all hover:border-border hover:bg-surface-2"
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-xl border-border-light bg-surface px-5 text-sm text-text-primary transition-all hover:border-border hover:bg-surface-2 hover:text-text-primary"
           >
-            <Github size={15} /> {t.hero.cta_github}
-          </a>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Github size={15} /> {t.hero.cta_github}
+            </a>
+          </Button>
 
-          <a
-            href={PROFILE.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex h-11 items-center gap-2 rounded-xl border border-border-light bg-surface px-5 text-sm font-medium text-text-primary transition-all hover:border-border hover:bg-surface-2"
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-xl border-border-light bg-surface px-5 text-sm text-text-primary transition-all hover:border-border hover:bg-surface-2 hover:text-text-primary"
           >
-            <Linkedin size={15} /> {t.hero.cta_linkedin}
-          </a>
+            <a
+              href={PROFILE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Linkedin size={15} /> {t.hero.cta_linkedin}
+            </a>
+          </Button>
         </motion.div>
 
         {/* Location */}

@@ -1,5 +1,7 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useLang, type Lang } from "@/context/LanguageContext";
 import { NAV_HREF, PROFILE } from "@/lib/data";
 import { AnimatePresence, motion } from "framer-motion";
@@ -61,11 +63,11 @@ export default function Navbar() {
           ease: [0.21, 0.47, 0.32, 0.98],
         }}
         style={{
-          background: scrolled ? "rgba(8,8,16,0.88)" : "transparent",
+          background: scrolled ? "hsl(var(--background) / 0.88)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled
-            ? "1px solid rgba(30,30,53,0.8)"
+            ? "1px solid hsl(var(--border) / 0.8)"
             : "1px solid transparent",
         }}
       >
@@ -79,8 +81,8 @@ export default function Navbar() {
               className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg text-sm font-bold font-display transition-all group-hover:scale-105"
               style={{
                 background:
-                  "linear-gradient(135deg,rgba(79,142,247,0.2),rgba(155,92,246,0.2))",
-                border: "1px solid rgba(79,142,247,0.25)",
+                  "linear-gradient(135deg,hsl(var(--primary) / 0.2),hsl(var(--accent-purple) / 0.2))",
+                border: "1px solid hsl(var(--primary) / 0.25)",
               }}
             >
               {!imageError ? (
@@ -105,16 +107,17 @@ export default function Navbar() {
             {navItems.map((link) => {
               const isActive = active === link.href.replace("#", "");
               return (
-                <button
+                <Button
                   key={link.href}
+                  type="button"
+                  variant="ghost"
                   onClick={() => go(link.href)}
-                  className={`relative rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-200 ${isActive ? "text-text-primary" : "text-text-secondary hover:text-text-primary"}`}
+                  className={`relative h-auto rounded-lg px-3.5 py-2 text-sm font-medium transition-all duration-200 hover:bg-transparent ${isActive ? "text-text-primary hover:text-text-primary" : "text-text-secondary hover:text-text-primary"}`}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="nav-active"
-                      className="absolute inset-0 rounded-lg bg-surface-2"
-                      style={{ border: "1px solid rgba(79,142,247,0.2)" }}
+                      className="absolute inset-0 rounded-lg border border-primary/20 bg-surface-2"
                       transition={{
                         type: "spring",
                         stiffness: 380,
@@ -123,19 +126,20 @@ export default function Navbar() {
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>
-                </button>
+                </Button>
               );
             })}
           </div>
           {/* ── Right actions ── */}
           <div className="flex items-center gap-2">
             {/* Available badge */}
-            <div className="hidden items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 sm:flex">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              <span className="font-mono-custom text-[11px] text-emerald-400">
-                {t.nav.available}
-              </span>
-            </div>
+            <Badge
+              variant="success"
+              className="hidden whitespace-nowrap rounded-full px-3 py-1 font-mono-custom text-[11px] sm:inline-flex"
+            >
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-success" />
+              <span>{t.nav.available}</span>
+            </Badge>
 
             {/* Language toggle */}
             <div
@@ -164,21 +168,25 @@ export default function Navbar() {
             </div>
 
             {/* Hire me */}
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="hidden rounded-lg border border-border-light bg-surface px-4 py-2 text-sm font-medium text-text-primary transition-all hover:border-accent-blue/30 hover:bg-accent-blue/5 md:block"
+            <Button
+              asChild
+              variant="outline"
+              className="hidden h-auto rounded-lg border-border-light bg-surface px-4 py-2 text-sm text-text-primary transition-all hover:border-accent-blue/30 hover:bg-accent-blue/5 hover:text-text-primary md:inline-flex"
             >
-              {t.nav.hire}
-            </a>
+              <a href={`mailto:${PROFILE.email}`}>{t.nav.hire}</a>
+            </Button>
 
             {/* Hamburger */}
-            <button
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
               onClick={() => setMenuOpen(!menuOpen)}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-text-secondary transition-all hover:border-border-light hover:text-text-primary md:hidden"
+              className="h-9 w-9 rounded-lg border-border bg-transparent text-text-secondary transition-all hover:border-border-light hover:bg-transparent hover:text-text-primary md:hidden"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X size={16} /> : <Menu size={16} />}
-            </button>
+            </Button>
           </div>
         </div>
       </motion.nav>
@@ -214,28 +222,35 @@ export default function Navbar() {
               {/* Mobile lang toggle */}
               <div className="mt-2 flex gap-2">
                 {(["en", "fr"] as Lang[]).map((l) => (
-                  <button
+                  <Button
                     key={l}
+                    type="button"
+                    variant="outline"
                     onClick={() => setLang(l)}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl border py-2.5 font-mono-custom text-sm uppercase tracking-widest transition-all ${lang === l ? "border-accent-blue/40 bg-accent-blue/10 text-accent-blue" : "border-border bg-surface text-text-muted"}`}
+                    className={`h-auto flex-1 rounded-xl py-2.5 font-mono-custom text-sm uppercase tracking-widest transition-all ${lang === l ? "border-accent-blue/40 bg-accent-blue/10 text-accent-blue hover:bg-accent-blue/15 hover:text-accent-blue" : "border-border bg-surface text-text-muted hover:bg-surface-2 hover:text-text-primary"}`}
                     aria-label={`Switch language to ${l.toUpperCase()}`}
                   >
                     <span className="text-sm leading-none">
                       {getLangFlag(l)}
                     </span>
                     <span>{l.toUpperCase()}</span>
-                  </button>
+                  </Button>
                 ))}
               </div>
 
               <div className="mt-4 border-t border-border pt-5">
-                <a
-                  href={`mailto:${PROFILE.email}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="block w-full rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple px-5 py-3 text-center font-medium text-white"
+                <Button
+                  asChild
+                  variant="gradient"
+                  className="h-auto w-full rounded-xl bg-gradient-to-r px-5 py-3 text-base"
                 >
-                  {t.nav.hire}
-                </a>
+                  <a
+                    href={`mailto:${PROFILE.email}`}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {t.nav.hire}
+                  </a>
+                </Button>
               </div>
             </div>
           </motion.div>

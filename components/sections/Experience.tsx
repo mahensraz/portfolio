@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Code2, Calendar } from "lucide-react";
 import ScrollReveal, { StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
+import { Badge } from "@/components/ui/badge";
 import { EXPERIENCE, PROFILE } from "@/lib/data";
 import { useLang } from "@/context/LanguageContext";
 import type { ExperienceItem } from "@/types";
@@ -30,7 +31,7 @@ function TimelineItem({ item, isLast }: { item: ExperienceItem; isLast: boolean 
             {TYPE_ICON[item.type]}
           </motion.div>
           {!isLast && (
-            <div className="mt-2 w-px flex-1" style={{ background: "linear-gradient(to bottom, rgba(30,30,53,0.8), transparent)", minHeight: "40px" }} />
+            <div className="mt-2 w-px flex-1" style={{ background: "linear-gradient(to bottom, hsl(var(--border) / 0.8), transparent)", minHeight: "40px" }} />
           )}
         </div>
 
@@ -40,14 +41,25 @@ function TimelineItem({ item, isLast }: { item: ExperienceItem; isLast: boolean 
               <h3 className="font-display text-base font-bold text-text-primary">{item.role[lang]}</h3>
               <p className={`mt-0.5 text-sm font-medium ${style.color}`}>{item.company}</p>
             </div>
-            <div className="flex items-center gap-1.5 rounded-md border border-border bg-surface-2 px-2.5 py-1 text-xs text-text-muted">
+            <Badge
+              variant="secondary"
+              className="whitespace-nowrap border-border px-2.5 py-1 font-mono-custom text-xs font-normal text-muted-foreground"
+            >
               <Calendar size={11} />
-              <span className="font-mono-custom">{item.period[lang]}</span>
-            </div>
+              <span>{item.period[lang]}</span>
+            </Badge>
           </div>
           <p className="text-sm leading-relaxed text-text-secondary">{item.description[lang]}</p>
           <div className="mt-4 flex flex-wrap gap-1.5">
-            {item.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}
+            {item.tags.map((tag) => (
+              <Badge
+                key={tag}
+                variant="subtle"
+                className="whitespace-nowrap rounded px-2 py-0.5 font-mono-custom text-[11px] tracking-wide"
+              >
+                {tag}
+              </Badge>
+            ))}
           </div>
         </div>
       </div>
@@ -81,14 +93,14 @@ export default function Experience() {
             <div className="flex flex-col gap-5 lg:sticky lg:top-24">
               {/* Profile card */}
               <div className="rounded-2xl border border-border p-5"
-                style={{ background: "linear-gradient(135deg,rgba(79,142,247,0.06) 0%,rgba(155,92,246,0.04) 100%)" }}>
+                style={{ background: "linear-gradient(135deg,hsl(var(--primary) / 0.06) 0%,hsl(var(--accent-purple) / 0.04) 100%)" }}>
                 <h3 className="font-display text-sm font-semibold text-text-primary">{t.experience.profile.title}</h3>
                 <div className="mt-4 flex flex-col gap-3">
                   {[
                     { label: t.experience.profile.approach, value: t.experience.profile.approachVal, color: "text-accent-blue" },
                     { label: t.experience.profile.strength, value: t.experience.profile.strengthVal, color: "text-accent-purple" },
                     { label: t.experience.profile.interest, value: t.experience.profile.interestVal, color: "text-accent-cyan" },
-                    { label: t.experience.profile.learning, value: t.experience.profile.learningVal, color: "text-emerald-400" },
+                    { label: t.experience.profile.learning, value: t.experience.profile.learningVal, color: "text-success" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between">
                       <span className="font-mono-custom text-[11px] uppercase tracking-wider text-text-muted">{item.label}</span>

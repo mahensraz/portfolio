@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-border bg-background">
       <div className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg,transparent,rgba(79,142,247,0.4) 30%,rgba(155,92,246,0.4) 70%,transparent)" }} />
+        style={{ background: "linear-gradient(90deg,transparent,hsl(var(--primary) / 0.4) 30%,hsl(var(--accent-purple) / 0.4) 70%,transparent)" }} />
 
       <div className="container-section py-12">
         <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
@@ -18,7 +18,7 @@ export default function Footer() {
           <div className="flex flex-col items-center gap-2 md:items-start">
             <div className="flex items-center gap-2.5">
               <div className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold font-display"
-                style={{ background: "linear-gradient(135deg,rgba(79,142,247,0.2),rgba(155,92,246,0.2))", border: "1px solid rgba(79,142,247,0.25)" }}>
+                style={{ background: "linear-gradient(135deg,hsl(var(--primary) / 0.2),hsl(var(--accent-purple) / 0.2))", border: "1px solid hsl(var(--primary) / 0.25)" }}>
                 <span className="gradient-text">MR</span>
               </div>
               <span className="font-display font-semibold text-text-primary">{PROFILE.name}</span>
