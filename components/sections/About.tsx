@@ -85,18 +85,26 @@ export default function About() {
             className="order-first lg:order-last"
           >
             <aside className="space-y-5">
-              {/* Mobile: compact horizontal lockup | Desktop: generous aspect-[4/5] portrait */}
+              {/* Mobile: compact portrait lockup | Desktop: editorial aspect-[4/5] portrait */}
               <div className="flex items-start gap-4 lg:flex-col lg:gap-5">
-                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border border-border bg-secondary/20 sm:h-24 sm:w-24 lg:aspect-[4/5] lg:h-auto lg:w-full">
+                <div className="group relative h-24 w-20 shrink-0 overflow-hidden rounded-xl border border-border/90 bg-surface shadow-card sm:h-28 sm:w-24 lg:aspect-[4/5] lg:h-auto lg:w-full lg:rounded-2xl">
                   {!imageError ? (
-                    <Image
-                      src={PROFILE.image}
-                      alt={PROFILE.name}
-                      fill
-                      sizes="(max-width: 1024px) 96px, 272px"
-                      className="object-cover object-top"
-                      onError={() => setImageError(true)}
-                    />
+                    <>
+                      <Image
+                        src={PROFILE.image}
+                        alt={PROFILE.name}
+                        fill
+                        quality={95}
+                        sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 280px"
+                        className="object-cover object-[50%_66%] brightness-[0.95] contrast-[1.03] transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        onError={() => setImageError(true)}
+                      />
+                      {/* Subtle dark-mode edge integration so the light studio backdrop blends naturally */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-t from-background/70 via-transparent to-background/15 ring-1 ring-inset ring-white/10"
+                      />
+                    </>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-secondary">
                       <span className="font-display text-2xl font-bold text-primary lg:text-4xl">
