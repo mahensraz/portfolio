@@ -13,32 +13,6 @@ interface ScrollRevealProps extends Omit<HTMLMotionProps<"div">, "children"> {
   className?: string;
 }
 
-// const getVariants = (
-//   direction: ScrollRevealProps["direction"],
-//   distance: number
-// ): Variants => {
-//   const directionMap = {
-//     up: { y: distance },
-//     down: { y: -distance },
-//     left: { x: distance },
-//     right: { x: -distance },
-//     none: {},
-//   };
-
-//   return {
-//     hidden: {
-//       opacity: 0,
-//       ...directionMap[direction ?? "up"],
-//     },
-//     visible: {
-//       opacity: 1,
-//       x: 0,
-//       y: 0,
-//       transition: { duration: 0, ease: "easeOut" },
-//     },
-//   };
-// };
-
 export default function ScrollReveal({
   children,
   delay = 0,
